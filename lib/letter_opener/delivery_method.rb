@@ -12,6 +12,7 @@ module LetterOpener
         template = File.expand_path("../views/index.html.erb", __FILE__)
         f.write ERB.new(File.read(template)).result(binding)
       end
+      Launchy.open("file://#{File.join(path, "index.html")}")
     end
   end
 end

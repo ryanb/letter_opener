@@ -2,6 +2,7 @@ require "spec_helper"
 
 describe LetterOpener::DeliveryMethod do
   before(:each) do
+    Launchy.stub(:open)
     location = File.expand_path('../../../tmp/letter_opener', __FILE__)
     FileUtils.rm_rf(location)
     Mail.defaults do
@@ -11,6 +12,7 @@ describe LetterOpener::DeliveryMethod do
   end
 
   it "saves text into html document" do
+    Launchy.should_receive(:open)
     mail = Mail.deliver do
       from    'foo@example.com'
       to      'bar@example.com'
