@@ -28,11 +28,15 @@ module LetterOpener
     end
 
     def body
-      (@part && @part.body || @mail.body).to_s
+      @body ||= (@part && @part.body || @mail.body).to_s
     end
 
     def type
       content_type =~ /html/ ? "rich" : "plain"
+    end
+
+    def encoding
+      body.respond_to?(:encoding) ? body.encoding : "utf-8"
     end
   end
 end
