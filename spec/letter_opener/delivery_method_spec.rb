@@ -19,8 +19,31 @@ describe LetterOpener::DeliveryMethod do
       subject 'Hello'
       body    'World!'
     end
-    html = File.read(Dir["#{@location}/*.html"].first)
-    html.should include("Hello")
-    html.should include("World!")
+    text = File.read(Dir["#{@location}/*/plain.html"].first)
+    text.should include("foo@example.com")
+    text.should include("bar@example.com")
+    text.should include("Hello")
+    text.should include("World!")
+  end
+
+  it "saves multipart email into html document" do
+    mail = Mail.deliver do
+      from    'foo@example.com'
+      to      'bar@example.com'
+      subject 'Many parts'
+      text_part do
+        body 'This is <plain> text'
+      end
+      html_part do
+        content_type 'text/html; charset=UTF-8'
+        body '<h1>This is HTML</h1>'
+      end
+    end
+    text = File.read(Dir["#{@location}/*/plain.html"].first)
+    text.should include("View HTML version")
+    text.should include("This is &lt;plain&gt; text")
+    html = File.read(Dir["#{@location}/*/rich.html"].first)
+    html.should include("View plain text version")
+    html.should include("<h1>This is HTML</h1>")
   end
 end

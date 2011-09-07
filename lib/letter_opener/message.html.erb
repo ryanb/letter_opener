@@ -56,7 +56,7 @@
 <div id="message_headers">
   <dl>
     <dt>From:</dt>
-    <dd><%= mail.from %></dd>
+    <dd><%= mail.from.join(", ") %></dd>
 
     <dt>Subject:</dt>
     <dd><strong><%= mail.subject %></strong></dd>
@@ -65,18 +65,22 @@
     <dd><%= Time.now.strftime("%b %e, %Y %I:%M:%S %p %Z") %></dd>
 
     <dt>To:</dt>
-    <dd><%= mail.to %></dd>
+    <dd><%= mail.to.join(", ") %></dd>
   </dl>
 
-  <% if false && mail.multipart? %>
+  <% if mail.multipart? %>
     <p class="alternate">
-      <% if body_part.content_type && body_part.content_type.match(/text\/html/) %>
-        <a href="<%= name %>.txt">View plain text version</a>
+      <% if type == "plain" %>
+        <a href="rich.html">View HTML version</a>
       <% else %>
-        <a href="<%= name %>.html">View HTML version</a>
+        <a href="plain.html">View plain text version</a>
       <% end %>
     </p>
   <% end %>
 </div>
 
-<pre id="message_body"><%= mail.body %></pre>
+<% if type == "plain" %>
+  <pre id="message_body"><%= CGI.escapeHTML(body) %></pre>
+<% else %>
+  <%= body %>
+<% end %>

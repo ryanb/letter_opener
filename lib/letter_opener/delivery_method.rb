@@ -5,13 +5,11 @@ module LetterOpener
     end
 
     def deliver!(mail)
-      path = File.join(@options[:location], "#{Time.now.to_i}_#{Digest::SHA1.hexdigest(mail.encoded)[0..6]}.html")
-      FileUtils.mkdir_p(@options[:location])
-      File.open(path, 'w') do |f|
-        template = File.expand_path("../views/index.html.erb", __FILE__)
-        f.write ERB.new(File.read(template)).result(binding)
-      end
-      Launchy.open("file://#{path}")
+      location = File.join(@options[:location], "#{Time.now.to_i}_#{Digest::SHA1.hexdigest(mail.encoded)[0..6]}")
+      messages = mail.parts.map { |part| Message.new(location, mail, part) }
+      messages << Message.new(location, mail) if messages.empty?
+      messages.each { |message| message.render }
+      Launchy.open("file://#{messages.first.filepath}")
     end
   end
 end
