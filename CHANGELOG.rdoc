@@ -1,0 +1,8 @@
+* 0.0.2
+
+Fixing launchy requirement (thanks Bruno Michel)
+
+
+* 0.0.1
+
+Initial relase
