@@ -1,0 +1,32 @@
+= Letter Opener
+
+Preview mail in your browser instead of sending it. When using the included delivery method, any sent mail will open automatically into the browser.
+
+== Rails Setup
+
+Add the gem to your development environment and run the +bundle+ command.
+
+  gem "letter_opener", :group => :development
+
+And then set the delivery method in <tt>config/environments/development.rb</tt>
+
+  config.action_mailer.delivery_method = :letter_opener
+
+Now any delivered mail will pop up in your browser. The messages are stored in <tt>tmp/letter_opener</tt>.
+
+
+== Other Setup
+
+This can be used with any environment that uses the Mail gem. Simply set the delivery method when configuring Mail and specify a location.
+
+  require "letter_opener"
+  Mail.defaults do
+    delivery_method LetterOpener::DeliveryMethod, :location => "tmp/letter_opener"
+  end
+
+
+== Development & Feedback
+
+Questions or comments? Please use the {issue tracker}[https://github.com/ryanb/private_pub/issues]. If you would like to contribue to this project, clone this repository and run +bundle+ and +rake+ to run the tests.
+
+Special thanks to the {mail_view}[https://github.com/37signals/mail_view/] gem for inspiring this project.

@@ -5,7 +5,7 @@ Gem::Specification.new do |s|
   s.email       = "ryan@railscasts.com"
   s.homepage    = "http://github.com/ryanb/letter_opener"
   s.summary     = "Preview mail in browser instead of sending."
-  s.description = "When mail is sent from your application, Open Mail will open a preview in the browser instead of sending."
+  s.description = "When mail is sent from your application, Letter Opener will open a preview in the browser instead of sending."
 
   s.files        = Dir["{lib,spec}/**/*", "[A-Z]*"] - ["Gemfile.lock"]
   s.require_path = "lib"

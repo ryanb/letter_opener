@@ -5,14 +5,13 @@ module LetterOpener
     end
 
     def deliver!(mail)
-      identity = Time.now.to_i.to_s + Digest::SHA1.hexdigest(mail.encoded)[0..6]
-      path = File.join(@options[:location], identity)
-      FileUtils.mkdir_p(path)
-      File.open(File.join(path, "index.html"), 'w') do |f|
+      path = File.join(@options[:location], "#{Time.now.to_i}_#{Digest::SHA1.hexdigest(mail.encoded)[0..6]}.html")
+      FileUtils.mkdir_p(@options[:location])
+      File.open(path, 'w') do |f|
         template = File.expand_path("../views/index.html.erb", __FILE__)
         f.write ERB.new(File.read(template)).result(binding)
       end
-      Launchy.open("file://#{File.join(path, "index.html")}")
+      Launchy.open("file://#{path}")
     end
   end
 end

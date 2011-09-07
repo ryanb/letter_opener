@@ -19,7 +19,7 @@ describe LetterOpener::DeliveryMethod do
       subject 'Hello'
       body    'World!'
     end
-    html = File.read(Dir["#{@location}/*/index.html"].first)
+    html = File.read(Dir["#{@location}/*.html"].first)
     html.should include("Hello")
     html.should include("World!")
   end
