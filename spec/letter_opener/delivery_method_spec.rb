@@ -3,7 +3,7 @@ require "spec_helper"
 describe LetterOpener::DeliveryMethod do
   before(:each) do
     Launchy.stub(:open)
-    location = File.expand_path('../../../tmp/letter_opener', __FILE__)
+    location = File.expand_path('../../../../tmp/letter_opener', __FILE__)
     FileUtils.rm_rf(location)
     Mail.defaults do
       delivery_method LetterOpener::DeliveryMethod, :location => location

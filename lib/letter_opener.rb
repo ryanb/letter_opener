@@ -5,4 +5,4 @@ require "launchy"
 
 require "letter_opener/message"
 require "letter_opener/delivery_method"
-require "letter_opener/railtie" if defined? Rails
+require "letter_opener/engine" if defined? Rails
