@@ -58,7 +58,7 @@
 <div id="message_headers">
   <dl>
     <dt>From:</dt>
-    <dd><%= mail.from.join(", ") %></dd>
+    <dd><%= from %></dd>
 
     <dt>Subject:</dt>
     <dd><strong><%= mail.subject %></strong></dd>
@@ -86,3 +86,4 @@
 <% else %>
   <%= body %>
 <% end %>
+
