@@ -26,25 +26,44 @@ describe LetterOpener::DeliveryMethod do
     text.should include("World!")
   end
 
-  it "saves multipart email into html document" do
-    mail = Mail.deliver do
-      from    'foo@example.com'
-      to      'bar@example.com'
-      subject 'Many parts'
-      text_part do
-        body 'This is <plain> text'
+  context "multipart email" do
+    it "saves multipart email into html document" do
+      deliver_email
+      text = File.read(Dir["#{@location}/*/plain.html"].first)
+      text.should include("View HTML version")
+      text.should include("This is &lt;plain&gt; text")
+      html = File.read(Dir["#{@location}/*/rich.html"].first)
+      html.should include("View plain text version")
+      html.should include("<h1>This is HTML</h1>")
+    end
+
+    it "opens only the first message if open_all param is false" do
+      Launchy.should_receive(:open).once
+      deliver_email
+    end
+
+    it "opens all messages if open_all param is true" do
+      Mail.defaults do
+        delivery_method LetterOpener::DeliveryMethod, :open_all => true
       end
-      html_part do
-        content_type 'text/html; charset=UTF-8'
-        body '<h1>This is HTML</h1>'
+
+      Launchy.should_receive(:open).twice
+      deliver_email
+    end
+
+    def deliver_email
+      Mail.deliver do
+        from    'foo@example.com'
+        to      'bar@example.com'
+        subject 'Many parts'
+        text_part do
+          body 'This is <plain> text'
+        end
+        html_part do
+          content_type 'text/html; charset=UTF-8'
+          body '<h1>This is HTML</h1>'
+        end
       end
     end
-    text = File.read(Dir["#{@location}/*/plain.html"].first)
-    text.should include("View HTML version")
-    text.should include("This is &lt;plain&gt; text")
-    html = File.read(Dir["#{@location}/*/rich.html"].first)
-    html.should include("View plain text version")
-    html.should include("<h1>This is HTML</h1>")
   end
 end
-
