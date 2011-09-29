@@ -17,13 +17,14 @@ describe LetterOpener::DeliveryMethod do
       from    'Foo foo@example.com'
       to      'bar@example.com'
       subject 'Hello'
-      body    'World!'
+      body    'World! http://google.com'
     end
     text = File.read(Dir["#{@location}/*/plain.html"].first)
     text.should include("Foo foo@example.com")
     text.should include("bar@example.com")
     text.should include("Hello")
     text.should include("World!")
+    text.should include("<a href=\"http://google.com\">http://google.com</a>")
   end
 
   it "saves multipart email into html document" do
