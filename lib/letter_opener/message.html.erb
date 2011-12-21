@@ -59,6 +59,11 @@
   <dl>
     <dt>From:</dt>
     <dd><%= from %></dd>
+    
+    <% if reply_to %>
+      <dt>Reply to:</dt>
+      <dd><%= reply_to %></dd>
+    <% end %>
 
     <dt>Subject:</dt>
     <dd><strong><%= mail.subject %></strong></dd>
