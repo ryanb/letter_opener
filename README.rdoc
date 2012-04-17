@@ -26,6 +26,11 @@ If you aren't using Rails, this can be easily set up with the Mail gem. Just set
   end
 
 
+== Project Status
+
+Unfortunately I have not had time to actively work on this project recently. If you find a critical issue where it does not work as documented please {ping me on Twitter}[http://twitter.com/rbates] and I'll take a look.
+
+
 == Development & Feedback
 
 Questions or comments? Please use the {issue tracker}[https://github.com/ryanb/letter_opener/issues]. If you would like to contribute to this project, clone this repository and run +bundle+ and +rake+ to run the tests.
