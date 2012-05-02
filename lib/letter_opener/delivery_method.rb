@@ -1,7 +1,7 @@
 module LetterOpener
   class DeliveryMethod
     def initialize(options = {})
-      @options = {:location => './letter_opener'}.merge!(options)
+      @options = { :location => defined?(Rails) ? Rails.root.join("tmp", "letter_opener") : './letter_opener' }.merge(options)
     end
 
     def deliver!(mail)
