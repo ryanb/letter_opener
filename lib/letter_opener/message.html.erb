@@ -13,7 +13,7 @@
     font-size: 12px;
     font-family: "Lucida Grande";
     border-bottom: 1px solid #dedede;
-    overflow: hidden;
+    overflow: auto;
   }
 
   #message_headers dl {
@@ -66,8 +66,20 @@
     <dt>Date:</dt>
     <dd><%= Time.now.strftime("%b %e, %Y %I:%M:%S %p %Z") %></dd>
 
-    <dt>To:</dt>
-    <dd><%= mail.to.join(", ") %></dd>
+    <% unless mail.to.empty? %>
+      <dt>TO:</dt>
+      <dd><%= mail.to.join(", ") %></dd>
+    <% end %>
+
+    <% if mail.cc %>
+      <dt>CC:</dt>
+      <dd><%= mail.cc.join(", ") %></dd>
+    <% end %>
+
+    <% if mail.bcc %>
+      <dt>BCC:</dt>
+      <dd><%= mail.bcc.join(", ") %></dd>
+    <% end %>
   </dl>
 
   <% if mail.multipart? %>
