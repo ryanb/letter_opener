@@ -12,7 +12,7 @@ module LetterOpener
     def render
       FileUtils.mkdir_p(@location)
 
-      if mail.attachments
+      if mail.attachments.size > 0
         attachments_dir = File.join(@location,'attachments')
         FileUtils.mkdir_p(attachments_dir)
         mail.attachments.each do |attachment|
