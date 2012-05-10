@@ -6,7 +6,8 @@
     top: 0px;
     left: 0;
     width: 100%;
-    padding: 10px 0;
+    height: 90px;
+    padding: 10px 0 0 0;
     margin: 0;
     background: #fff;
     font-size: 12px;
@@ -50,7 +51,7 @@
   }
 
   body {
-    margin-top: 96px !important;
+    margin-top: 100px !important;
   }
 </style>
 
@@ -72,7 +73,7 @@
       <dt>Attachments:</dt>
       <dd>
         <% @attachments.each do |filename, path| %>
-          <div><a href="<%= path %>"><%= filename %></a></div>
+          <a href="<%= path %>"><%= filename %></a>&nbsp;
         <% end %>
       </dd>
     <% end %>
