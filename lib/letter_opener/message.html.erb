@@ -19,7 +19,7 @@
   }
 
   #message_headers dt {
-    width: 62px;
+    width: 100px;
     padding: 1px;
     margin: 0;
     float: left;
@@ -29,7 +29,7 @@
   }
 
   #message_headers dd {
-    margin: 0 0 0 72px;
+    margin-left: 110px;
     padding: 1px;
   }
 
@@ -83,7 +83,7 @@
       <dt>Attachments:</dt>
       <dd>
         <% @attachments.each do |filename, path| %>
-          <a href="<%= path %>"><%= filename %></a>
+          <div><a href="<%= path %>"><%= filename %></a></div>
         <% end %>
       </dd>
     <% end %>
