@@ -13,10 +13,22 @@ module LetterOpener
       @location = location
       @mail = mail
       @part = part
+      @attachments = []
     end
 
     def render
       FileUtils.mkdir_p(@location)
+
+      if mail.attachments
+        attachments_dir = File.join(@location,'attachments')
+        FileUtils.mkdir_p(attachments_dir)
+        mail.attachments.each do |attachment|
+          path = File.join(attachments_dir, attachment.filename)
+          File.open(path, 'wb') { |f| f.write(attachment.body.raw_source) }
+          @attachments << [attachment.filename, "attachments/#{URI.escape(attachment.filename)}"]
+        end
+      end
+
       File.open(filepath, 'w') do |f|
         f.write ERB.new(template).result(binding)
       end
