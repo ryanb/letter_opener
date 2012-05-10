@@ -3,7 +3,9 @@ module LetterOpener
     attr_reader :mail
 
     def self.rendered_messages(location, mail)
-      messages = mail.parts.map { |part| new(location, mail, part) }
+      messages = []
+      messages << new(location, mail, mail.html_part) if mail.html_part
+      messages << new(location, mail, mail.text_part) if mail.text_part
       messages << new(location, mail) if messages.empty?
       messages.each(&:render)
       messages.sort
