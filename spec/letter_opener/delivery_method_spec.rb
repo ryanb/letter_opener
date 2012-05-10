@@ -166,4 +166,20 @@ describe LetterOpener::DeliveryMethod do
       plain.should include("World!")
     end
   end
+
+  it "saves attachments into a seperate directory" do
+    mail = Mail.deliver do
+      from      'foo@example.com'
+      to        'bar@example.com'
+      subject   'With attachments'
+      text_part do
+        body 'This is <plain> text'
+      end
+      attachments[File.basename(__FILE__)] = File.read(__FILE__)
+    end
+    attachment_path = Dir["#{@location}/*/attachments/#{File.basename(__FILE__)}"].first
+    File.exists?(attachment_path).should == true
+    text = File.read(Dir["#{@location}/*/plain.html"].first)
+    text.should include(File.basename(__FILE__))
+  end
 end
