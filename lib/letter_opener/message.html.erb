@@ -3,7 +3,8 @@
 <style type="text/css">
   #message_headers {
     width: 100%;
-    padding: 10px 0;
+    height: 90px;
+    padding: 10px 0 0 0;
     margin: 0;
     background: #fff;
     font-size: 12px;
@@ -46,6 +47,13 @@
     padding: 10px;
     word-wrap: break-word;
   }
+<<<<<<< HEAD
+=======
+
+  body {
+    margin-top: 100px !important;
+  }
+>>>>>>> Turns out there was a good reason for that
 </style>
 
 <div id="message_headers">
@@ -83,7 +91,7 @@
       <dt>Attachments:</dt>
       <dd>
         <% @attachments.each do |filename, path| %>
-          <div><a href="<%= path %>"><%= filename %></a></div>
+          <a href="<%= path %>"><%= filename %></a>&nbsp;
         <% end %>
       </dd>
     <% end %>
