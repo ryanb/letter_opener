@@ -17,7 +17,9 @@ module LetterOpener
         FileUtils.mkdir_p(attachments_dir)
         mail.attachments.each do |attachment|
           path = File.join(attachments_dir, attachment.filename)
-          File.open(path, 'wb') { |f| f.write(attachment.body.raw_source) }
+          unless File.exists?(path) # true if other parts have already been rendered
+            File.open(path, 'wb') { |f| f.write(attachment.body.raw_source) }
+          end
           @attachments << [attachment.filename, "attachments/#{URI.escape(attachment.filename)}"]
         end
       end
