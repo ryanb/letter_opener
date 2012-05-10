@@ -84,15 +84,16 @@
       <dd><%= h mail.bcc.join(", ") %></dd>
     <% end %>
 
-    <% if @attachments.size > 0 %>
-      <dt>Attachments:</dt>
-      <dd>
+    <dt>Attachments:</dt>
+    <dd>
+      <% if @attachments.size > 0 %>
         <% @attachments.each do |filename, path| %>
           <a href="<%= path %>"><%= filename %></a>&nbsp;
         <% end %>
-      </dd>
-    <% end %>
-
+      <% else %>
+        None
+      <% end %>
+    </dd>
   </dl>
 
   <% if mail.multipart? %>
