@@ -11,7 +11,8 @@ module LetterOpener
       messages = mail.parts.map { |part| Message.new(location, mail, part) }
       messages << Message.new(location, mail) if messages.empty?
       messages.each { |message| message.render }
-      Launchy.open(URI.parse("file://#{messages.first.filepath}"))
+      initial_message = messages.find { |msg| msg.type == 'rich' } || messages.first
+      Launchy.open(URI.parse("file://#{initial_message.filepath}"))
     end
   end
 end
