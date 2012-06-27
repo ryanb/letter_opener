@@ -11,6 +11,7 @@ Gem::Specification.new do |s|
   s.require_path = "lib"
 
   s.add_dependency 'launchy'
+  s.add_development_dependency "rails", "~> 3.0"
   s.add_development_dependency 'rspec', '~> 2.6.0'
   s.add_development_dependency 'mail', '~> 2.3.0'
 
