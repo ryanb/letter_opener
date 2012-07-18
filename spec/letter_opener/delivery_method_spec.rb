@@ -14,13 +14,15 @@ describe LetterOpener::DeliveryMethod do
   it "saves text into html document" do
     Launchy.should_receive(:open)
     mail = Mail.deliver do
-      from    'Foo foo@example.com'
-      to      'bar@example.com'
-      subject 'Hello'
-      body    'World!'
+      from     'Foo foo@example.com'
+      reply_to 'baz@example.com'
+      to       'bar@example.com'
+      subject  'Hello'
+      body     'World!'
     end
     text = File.read(Dir["#{@location}/*/plain.html"].first)
     text.should include("Foo foo@example.com")
+    text.should include("baz@example.com")
     text.should include("bar@example.com")
     text.should include("Hello")
     text.should include("World!")
