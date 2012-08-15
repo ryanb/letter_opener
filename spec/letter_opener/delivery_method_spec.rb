@@ -26,6 +26,18 @@ describe LetterOpener::DeliveryMethod do
     text.should include("World!")
   end
 
+  it "hides bcc recipients" do
+    Launchy.should_receive(:open)
+    mail = Mail.deliver do
+      from    'Foo foo@example.com'
+      bcc     'bar@example.com'
+      subject 'Hello'
+      body    'World!'
+    end
+    text = File.read(Dir["#{@location}/*/plain.html"].first)
+    text.should_not include("bar@example.com")
+  end
+
   it "saves multipart email into html document" do
     mail = Mail.deliver do
       from    'foo@example.com'
