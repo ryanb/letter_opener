@@ -26,7 +26,7 @@ describe LetterOpener::DeliveryMethod do
     text.should include("World!")
   end
 
-  it "hides bcc recipients" do
+  it "hides bcc recipients and allows for no to recipients" do
     Launchy.should_receive(:open)
     mail = Mail.deliver do
       from    'Foo foo@example.com'
