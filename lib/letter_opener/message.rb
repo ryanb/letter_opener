@@ -51,7 +51,14 @@ module LetterOpener
     end
 
     def body
-      @body ||= (@part && @part.body || @mail.body).to_s
+      if !@body_string
+        @body_string = (@part && @part.body || @mail.body).to_s
+        mail.attachments.each do |attachment|
+          @body_string.gsub!(attachment.url, "attachments/#{attachment.filename}")
+        end
+        @body = @body_string
+      end
+      @body
     end
 
     def from
