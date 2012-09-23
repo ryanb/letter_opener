@@ -62,5 +62,25 @@ describe LetterOpener::DeliveryMethod do
     text = File.read(Dir["#{@location}/*/plain.html"].first)
     text.should include(File.basename(__FILE__))
   end
+
+  it "replaces inline attachment urls" do
+    mail = Mail.deliver do
+      from      'foo@example.com'
+      to        'bar@example.com'
+      subject   'With attachments'
+      attachments[File.basename(__FILE__)] = File.read(__FILE__)
+      url = attachments[0].url
+      html_part do
+        content_type 'text/html; charset=UTF-8'
+        body "Here's an image: <img src='#{url}' />"
+      end
+    end
+    attachment_path = Dir["#{@location}/*/attachments/#{File.basename(__FILE__)}"].first
+    File.exists?(attachment_path).should == true
+    text = File.read(Dir["#{@location}/*/rich.html"].first)
+    mail.parts[0].body.should include(mail.attachments[0].url)
+    text.should_not include(mail.attachments[0].url)
+    text.should include("attachments/#{File.basename(__FILE__)}")
+  end
 end
 
