@@ -32,7 +32,7 @@ module LetterOpener
     end
 
     def from
-      @from ||= @mail.from.kind_of?(Array) && @mail.from.join(", ") || @mail.from
+      @from ||= Array(@mail.from).join(", ")
     end
 
     def type
