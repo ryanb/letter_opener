@@ -1,7 +1,10 @@
+* Unreleased
+
+Handle `reply_to` field (thanks Wes Gibbs)
+
 * 0.0.2
 
 Fixing launchy requirement (thanks Bruno Michel)
-
 
 * 0.0.1
 
