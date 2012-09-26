@@ -52,7 +52,7 @@
     <dt>From:</dt>
     <dd><%= from %></dd>
 
-    <% if mail.reply_to %>
+    <% unless reply_to.empty? %>
       <dt>Reply-To:</dt>
       <dd><%= mail.reply_to %></dd>
     <% end %>

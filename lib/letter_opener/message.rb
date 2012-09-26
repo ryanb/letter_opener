@@ -35,6 +35,10 @@ module LetterOpener
       @from ||= Array(@mail.from).join(", ")
     end
 
+    def reply_to
+      @reply_to ||= Array(@mail.reply_to).join(", ")
+    end
+
     def type
       content_type =~ /html/ ? "rich" : "plain"
     end
