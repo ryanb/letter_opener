@@ -1,14 +1,16 @@
 require "spec_helper"
 
 describe LetterOpener::DeliveryMethod do
-  before(:each) do
+  let(:location) { File.expand_path('../../../tmp/letter_opener', __FILE__) }
+
+  before do
     Launchy.stub(:open)
-    location = File.expand_path('../../../tmp/letter_opener', __FILE__)
     FileUtils.rm_rf(location)
+    context = self
+
     Mail.defaults do
-      delivery_method LetterOpener::DeliveryMethod, :location => location
+      delivery_method LetterOpener::DeliveryMethod, :location => context.location
     end
-    @location = location
   end
 
   it "saves text into html document" do
@@ -20,7 +22,7 @@ describe LetterOpener::DeliveryMethod do
       subject  'Hello'
       body     'World!'
     end
-    text = File.read(Dir["#{@location}/*/plain.html"].first)
+    text = File.read(Dir["#{location}/*/plain.html"].first)
     text.should include("Foo foo@example.com")
     text.should include("No Reply no-reply@example.com")
     text.should include("bar@example.com")
@@ -41,10 +43,10 @@ describe LetterOpener::DeliveryMethod do
         body '<h1>This is HTML</h1>'
       end
     end
-    text = File.read(Dir["#{@location}/*/plain.html"].first)
+    text = File.read(Dir["#{location}/*/plain.html"].first)
     text.should include("View HTML version")
     text.should include("This is &lt;plain&gt; text")
-    html = File.read(Dir["#{@location}/*/rich.html"].first)
+    html = File.read(Dir["#{location}/*/rich.html"].first)
     html.should include("View plain text version")
     html.should include("<h1>This is HTML</h1>")
   end
@@ -61,7 +63,7 @@ describe LetterOpener::DeliveryMethod do
 
     mail.deliver!
 
-    text = File.read(Dir["#{@location}/*/plain.html"].first)
+    text = File.read(Dir["#{location}/*/plain.html"].first)
     text.should include("foo@example.com")
     text.should include("bar@example.com")
     text.should include("Hello")
