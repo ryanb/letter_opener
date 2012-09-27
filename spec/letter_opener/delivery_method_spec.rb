@@ -51,6 +51,23 @@ describe LetterOpener::DeliveryMethod do
     html.should include("<h1>This is HTML</h1>")
   end
 
+  it "saves text into html document with spaces in name" do
+    location = File.expand_path('../../../tmp/letter_opener with space', __FILE__)
+
+    Mail.defaults do
+      delivery_method LetterOpener::DeliveryMethod, :location => location
+    end
+
+    Launchy.should_receive(:open)
+    mail = Mail.deliver do
+      from     'Foo foo@example.com'
+      to       'bar@example.com'
+      subject  'Hello'
+      body     'World!'
+    end
+    text = File.read(Dir["#{location}/*/plain.html"].first)
+    text.should include("Foo foo@example.com")
+  end
 
   it "saves text into html document when deliver! is called" do
     Launchy.should_receive(:open)
