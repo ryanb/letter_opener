@@ -1,5 +1,6 @@
 * Unreleased
 
+As letter_opener doesn't work with Launchy < 2.0.4 let's depend on >= 2.0.4 (thanks Samnang Chhun)
 Handle `reply_to` field (thanks Wes Gibbs)
 
 * 0.0.2

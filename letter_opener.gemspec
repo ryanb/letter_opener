@@ -10,7 +10,7 @@ Gem::Specification.new do |s|
   s.files        = Dir["{lib,spec}/**/*", "[A-Z]*"] - ["Gemfile.lock"]
   s.require_path = "lib"
 
-  s.add_dependency 'launchy'
+  s.add_dependency 'launchy', '>= 2.0.4'
   s.add_development_dependency 'rspec', '~> 2.6.0'
   s.add_development_dependency 'mail', '~> 2.3.0'
 
