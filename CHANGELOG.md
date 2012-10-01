@@ -1,5 +1,6 @@
 ## Unreleased ##
 
+  * Override margin on dt and dd elements in CSS (thanks Edgars Beigarts)
   * Autolink URLs in plain version (thanks Matt Burke)
 
 ## 0.1.0 ##
