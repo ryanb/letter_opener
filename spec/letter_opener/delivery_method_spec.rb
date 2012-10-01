@@ -13,6 +13,11 @@ describe LetterOpener::DeliveryMethod do
     end
   end
 
+  it 'raises an exception if no location passed' do
+    lambda { LetterOpener::DeliveryMethod.new }.should raise_exception(LetterOpener::DeliveryMethod::InvalidOption)
+    lambda { LetterOpener::DeliveryMethod.new(location: "foo") }.should_not raise_exception
+  end
+
   context 'content' do
     let(:plain_file) { Dir["#{location}/*/plain.html"].first }
     let(:plain) { File.read(plain_file) }

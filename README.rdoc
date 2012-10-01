@@ -22,7 +22,7 @@ If you aren't using Rails, this can be easily set up with the Mail gem. Just set
 
   require "letter_opener"
   Mail.defaults do
-    delivery_method LetterOpener::DeliveryMethod, :location => "tmp/letter_opener"
+    delivery_method LetterOpener::DeliveryMethod, :location => File.expand_path('../tmp/letter_opener', __FILE__)
   end
 
 
