@@ -64,6 +64,10 @@ module LetterOpener
       end
     end
 
+    def h(content)
+      CGI.escapeHTML(content)
+    end
+
     def <=>(other)
       order = %w[rich plain]
       order.index(type) <=> order.index(other.type)

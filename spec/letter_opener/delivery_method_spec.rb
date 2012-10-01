@@ -70,7 +70,7 @@ describe LetterOpener::DeliveryMethod do
         Mail.deliver do
           from    'foo@example.com'
           to      'bar@example.com'
-          subject 'Many parts'
+          subject 'Many parts with <html>'
           text_part do
             body 'This is <plain> text'
           end
@@ -99,6 +99,10 @@ describe LetterOpener::DeliveryMethod do
 
       it 'saves html part' do
         rich.should include("<h1>This is HTML</h1>")
+      end
+
+      it 'saves escaped Subject field' do
+        plain.should include("Many parts with &lt;html&gt;")
       end
     end
   end

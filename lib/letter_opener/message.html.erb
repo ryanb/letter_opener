@@ -51,32 +51,32 @@
 <div id="message_headers">
   <dl>
     <dt>From:</dt>
-    <dd><%= from %></dd>
+    <dd><%= h from %></dd>
 
     <% unless reply_to.empty? %>
       <dt>Reply-To:</dt>
-      <dd><%= reply_to %></dd>
+      <dd><%= h reply_to %></dd>
     <% end %>
 
     <dt>Subject:</dt>
-    <dd><strong><%= mail.subject %></strong></dd>
+    <dd><strong><%= h mail.subject %></strong></dd>
 
     <dt>Date:</dt>
     <dd><%= Time.now.strftime("%b %e, %Y %I:%M:%S %p %Z") %></dd>
 
     <% unless to.empty? %>
       <dt>To:</dt>
-      <dd><%= to %></dd>
+      <dd><%= h to %></dd>
     <% end %>
 
     <% if mail.cc %>
       <dt>CC:</dt>
-      <dd><%= mail.cc.join(", ") %></dd>
+      <dd><%= h mail.cc.join(", ") %></dd>
     <% end %>
 
     <% if mail.bcc %>
       <dt>BCC:</dt>
-      <dd><%= mail.bcc.join(", ") %></dd>
+      <dd><%= h mail.bcc.join(", ") %></dd>
     <% end %>
   </dl>
 
@@ -92,7 +92,7 @@
 </div>
 
 <% if type == "plain" %>
-  <pre id="message_body"><%= auto_link(CGI.escapeHTML(body)) %></pre>
+  <pre id="message_body"><%= auto_link(h(body)) %></pre>
 <% else %>
   <%= body %>
 <% end %>

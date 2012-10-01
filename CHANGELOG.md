@@ -1,5 +1,7 @@
 ## Unreleased ##
 
+  * Escape HTML in subject and other fields
+  * Raise an exception if the :location option is not present instead of using a default
   * Open rich version by default (thanks Damir)
   * Override margin on dt and dd elements in CSS (thanks Edgars Beigarts)
   * Autolink URLs in plain version (thanks Matt Burke)
