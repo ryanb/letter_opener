@@ -35,6 +35,10 @@ module LetterOpener
       @from ||= Array(@mail.from).join(", ")
     end
 
+    def to
+      @to ||= Array(@mail.to).join(", ")
+    end
+
     def reply_to
       @reply_to ||= Array(@mail.reply_to).join(", ")
     end

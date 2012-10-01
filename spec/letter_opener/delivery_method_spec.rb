@@ -24,7 +24,7 @@ describe LetterOpener::DeliveryMethod do
         Mail.deliver do
           from     'Foo foo@example.com'
           reply_to 'No Reply no-reply@example.com'
-          to       'bar@example.com'
+          to       'Bar bar@example.com'
           subject  'Hello'
           body     'World!'
         end
@@ -43,7 +43,7 @@ describe LetterOpener::DeliveryMethod do
       end
 
       it 'saves To field' do
-        plain.should include("bar@example.com")
+        plain.should include("Bar bar@example.com")
       end
 
       it 'saves Subject field' do

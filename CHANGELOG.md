@@ -1,5 +1,6 @@
 ## Unreleased ##
 
+  * From and To show name and Email when specified
   * Fix bug when letter_opener couldn't open email in Windows
   * Handle spaces in the application path (thanks Mike Boone)
   * As letter_opener doesn't work with Launchy < 2.0.4 let's depend on >= 2.0.4 (thanks Samnang Chhun)

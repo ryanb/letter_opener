@@ -14,4 +14,16 @@ describe LetterOpener::Message do
       message.reply_to.should eq('test1@example.com, test2@example.com')
     end
   end
+
+  describe '#to' do
+    it 'handles one email as a string' do
+      message = described_class.new(location, mock(to: 'test@example.com'))
+      message.to.should eq('test@example.com')
+    end
+
+    it 'handles array of emails' do
+      message = described_class.new(location, mock(to: ['test1@example.com', 'test2@example.com']))
+      message.to.should eq('test1@example.com, test2@example.com')
+    end
+  end
 end
