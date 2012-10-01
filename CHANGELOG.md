@@ -1,4 +1,4 @@
-## Unreleased ##
+## 0.1.0 ##
 
   * From and To show name and Email when specified
   * Fix bug when letter_opener couldn't open email in Windows
