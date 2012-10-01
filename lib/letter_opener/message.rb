@@ -2,6 +2,13 @@ module LetterOpener
   class Message
     attr_reader :mail
 
+    def self.rendered_messages(location, mail)
+      messages = mail.parts.map { |part| new(location, mail, part) }
+      messages << new(location, mail) if messages.empty?
+      messages.each(&:render)
+      messages
+    end
+
     def initialize(location, mail, part = nil)
       @location = location
       @mail = mail
@@ -56,6 +63,10 @@ module LetterOpener
         "<a href=\"#{$&}\">#{$&}</a>"
       end
     end
+
+    def <=>(other)
+      order = %w[rich plain]
+      order.index(type) <=> order.index(other.type)
+    end
   end
 end
-

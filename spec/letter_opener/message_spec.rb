@@ -26,4 +26,12 @@ describe LetterOpener::Message do
       message.to.should eq('test1@example.com, test2@example.com')
     end
   end
+
+  describe '#<=>' do
+    it 'sorts rich type before plain type' do
+      plain = described_class.new(location, mock(content_type: 'text/plain'))
+      rich = described_class.new(location, mock(content_type: 'text/html'))
+      [plain, rich].sort.should eq([rich, plain])
+    end
+  end
 end
