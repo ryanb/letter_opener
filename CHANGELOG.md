@@ -1,3 +1,7 @@
+## Unreleased ##
+
+  * Autolink URLs in plain version (thanks Matt Burke)
+
 ## 0.1.0 ##
 
   * From and To show name and Email when specified
