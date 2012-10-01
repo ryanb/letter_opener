@@ -6,7 +6,7 @@ module LetterOpener
       messages = mail.parts.map { |part| new(location, mail, part) }
       messages << new(location, mail) if messages.empty?
       messages.each(&:render)
-      messages
+      messages.sort
     end
 
     def initialize(location, mail, part = nil)
