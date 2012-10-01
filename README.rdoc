@@ -30,4 +30,4 @@ If you aren't using Rails, this can be easily set up with the Mail gem. Just set
 
 Questions or problems? Please use the {issue tracker}[https://github.com/ryanb/letter_opener/issues]. If you would like to contribute to this project, fork this repository and run +bundle+ and +rake+ to run the tests. Pull requests appreciated.
 
-Special thanks to the {mail_view}[https://github.com/37signals/mail_view/] gem for inspiring this project and for their mail template. Also thanks to [Vasiliy Ermolovich](https://github.com/nashby) for helping manage this project.
+Special thanks to the {mail_view}[https://github.com/37signals/mail_view/] gem for inspiring this project and for their mail template. Also thanks to {Vasiliy Ermolovich}[https://github.com/nashby] for helping manage this project.
