@@ -26,7 +26,7 @@ describe LetterOpener::DeliveryMethod do
           reply_to 'No Reply no-reply@example.com'
           to       'Bar bar@example.com'
           subject  'Hello'
-          body     'World!'
+          body     'World! http://example.com'
         end
       end
 
@@ -50,8 +50,8 @@ describe LetterOpener::DeliveryMethod do
         plain.should include("Hello")
       end
 
-      it 'saves Body field' do
-        plain.should include("World!")
+      it 'saves Body with autolink' do
+        plain.should include('World! <a href="http://example.com">http://example.com</a>')
       end
     end
 

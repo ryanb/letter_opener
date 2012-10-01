@@ -91,7 +91,7 @@
 </div>
 
 <% if type == "plain" %>
-  <pre id="message_body"><%= CGI.escapeHTML(body) %></pre>
+  <pre id="message_body"><%= auto_link(CGI.escapeHTML(body)) %></pre>
 <% else %>
   <%= body %>
 <% end %>

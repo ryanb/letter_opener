@@ -50,6 +50,12 @@ module LetterOpener
     def encoding
       body.respond_to?(:encoding) ? body.encoding : "utf-8"
     end
+
+    def auto_link(text)
+      text.gsub(URI.regexp(%W[https http])) do
+        "<a href=\"#{$&}\">#{$&}</a>"
+      end
+    end
   end
 end
 
