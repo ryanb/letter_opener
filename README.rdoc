@@ -25,6 +25,12 @@ If you aren't using Rails, this can be easily set up with the Mail gem. Just set
     delivery_method LetterOpener::DeliveryMethod, :location => File.expand_path('../tmp/letter_opener', __FILE__)
   end
 
+Alternatively, if you are using ActionMailer directly (without Rails) you will need to add the delivery method.
+
+  require "letter_opener"
+  ActionMailer::Base.add_delivery_method :letter_opener, LetterOpener::DeliveryMethod, :location => File.expand_path('../tmp/letter_opener', __FILE__)
+  ActionMailer::Base.delivery_method = :letter_opener
+
 
 == Development & Feedback
 
