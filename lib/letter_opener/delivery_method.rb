@@ -12,7 +12,7 @@ module LetterOpener
       messages << Message.new(location, mail) if messages.empty?
       messages.each(&:render)
       initial_message = messages.find { |msg| msg.type == 'rich' } || messages.first
-      Launchy.open(URI.parse(URI.escape(messages.first.filepath)))
+      Launchy.open(URI.parse(URI.escape(initial_message.filepath)))
     end
   end
 end

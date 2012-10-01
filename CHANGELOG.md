@@ -1,5 +1,6 @@
 ## Unreleased ##
 
+  * Open rich version by default (thanks Damir)
   * Override margin on dt and dd elements in CSS (thanks Edgars Beigarts)
   * Autolink URLs in plain version (thanks Matt Burke)
 
