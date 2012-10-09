@@ -3,7 +3,9 @@ module LetterOpener
     attr_reader :mail
 
     def self.rendered_messages(location, mail)
-      messages = mail.parts.map { |part| new(location, mail, part) }
+      messages = []
+      messages << new(location, mail, mail.html_part) if mail.html_part
+      messages << new(location, mail, mail.text_part) if mail.text_part
       messages << new(location, mail) if messages.empty?
       messages.each(&:render)
       messages.sort
@@ -13,10 +15,24 @@ module LetterOpener
       @location = location
       @mail = mail
       @part = part
+      @attachments = []
     end
 
     def render
       FileUtils.mkdir_p(@location)
+
+      if mail.attachments.size > 0
+        attachments_dir = File.join(@location,'attachments')
+        FileUtils.mkdir_p(attachments_dir)
+        mail.attachments.each do |attachment|
+          path = File.join(attachments_dir, attachment.filename)
+          unless File.exists?(path) # true if other parts have already been rendered
+            File.open(path, 'wb') { |f| f.write(attachment.body.raw_source) }
+          end
+          @attachments << [attachment.filename, "attachments/#{URI.escape(attachment.filename)}"]
+        end
+      end
+
       File.open(filepath, 'w') do |f|
         f.write ERB.new(template).result(binding)
       end
@@ -35,7 +51,14 @@ module LetterOpener
     end
 
     def body
-      @body ||= (@part && @part.body || @mail.body).to_s
+      if !@body_string
+        @body_string = (@part && @part.body || @mail.body).to_s
+        mail.attachments.each do |attachment|
+          @body_string.gsub!(attachment.url, "attachments/#{attachment.filename}")
+        end
+        @body = @body_string
+      end
+      @body
     end
 
     def from
