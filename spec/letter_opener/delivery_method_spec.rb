@@ -178,7 +178,7 @@ describe LetterOpener::DeliveryMethod do
       attachments[File.basename(__FILE__)] = File.read(__FILE__)
     end
     attachment_path = Dir["#{location}/*/attachments/#{File.basename(__FILE__)}"].first
-    File.exists?(attachment_path).should == true
+    File.exists?(attachment_path).should be_true
     text = File.read(Dir["#{location}/*/plain.html"].first)
     text.should include(File.basename(__FILE__))
   end
@@ -196,7 +196,7 @@ describe LetterOpener::DeliveryMethod do
       end
     end
     attachment_path = Dir["#{location}/*/attachments/#{File.basename(__FILE__)}"].first
-    File.exists?(attachment_path).should == true
+    File.exists?(attachment_path).should be_true
     text = File.read(Dir["#{location}/*/rich.html"].first)
     mail.parts[0].body.should include(mail.attachments[0].url)
     text.should_not include(mail.attachments[0].url)
