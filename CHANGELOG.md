@@ -1,4 +1,4 @@
-## Unreleased ##
+## 1.0.0 ##
 
   * Attachment Support (thanks David Cornu)
   * Escape HTML in subject and other fields
