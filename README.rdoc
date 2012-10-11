@@ -32,6 +32,13 @@ Alternatively, if you are using ActionMailer directly (without Rails) you will n
   ActionMailer::Base.delivery_method = :letter_opener
 
 
+== Remote Alternatives
+
+Letter Opener uses {Launchy}[https://github.com/copiousfreetime/launchy] to open sent mail in the browser. This assumes the Ruby process is running on the local development machine. If you are using a separate staging server or VM this will not work. In that case consider using {Mailtrap}[http://mailtrap.io/] or {MailCatcher}[http://mailcatcher.me/].
+
+In order to keep this project simple, I don't have plans to turn it into a Rails engine with an interface for browsing the sent mail. However it would be awesome if someone wants to release that as a separate gem, perhaps called `remote_letter_opener`.
+
+
 == Development & Feedback
 
 Questions or problems? Please use the {issue tracker}[https://github.com/ryanb/letter_opener/issues]. If you would like to contribute to this project, fork this repository and run +bundle+ and +rake+ to run the tests. Pull requests appreciated.
