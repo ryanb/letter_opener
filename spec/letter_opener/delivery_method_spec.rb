@@ -104,6 +104,10 @@ describe LetterOpener::DeliveryMethod do
       it 'saves escaped Subject field' do
         plain.should include("Many parts with &lt;html&gt;")
       end
+
+      it 'shows subject as title' do
+        rich.should include("<title>Many parts with &lt;html&gt;</title>")
+      end
     end
   end
 
