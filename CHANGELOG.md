@@ -1,3 +1,7 @@
+## Unreleased ##
+
+  * Show subject as title of web page (thanks statique)
+
 ## 1.0.0 ##
 
   * Attachment Support (thanks David Cornu)
