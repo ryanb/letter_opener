@@ -1,3 +1,5 @@
+require "erb"
+
 module LetterOpener
   class Message
     attr_reader :mail
