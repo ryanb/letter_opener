@@ -6,4 +6,8 @@ require "launchy"
 
 require "letter_opener/message"
 require "letter_opener/delivery_method"
-require "letter_opener/railtie" if defined? Rails
+if (defined? Rails && Rails.version =~ /^3\./)
+	require "letter_opener/railtie" 
+elsif defined? Rails
+	require "actionmailer/letter_opener_extension"
+end
