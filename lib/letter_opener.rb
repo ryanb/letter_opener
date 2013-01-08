@@ -6,8 +6,8 @@ require "launchy"
 
 require "letter_opener/message"
 require "letter_opener/delivery_method"
-if (defined? Rails && Rails.version =~ /^3\./)
+if defined? Rails
 	require "letter_opener/railtie" 
-elsif defined? Rails
-	require "actionmailer/letter_opener_extension"
+	major, minor = Rails.version.split('.')
+	require "actionmailer/letter_opener_extension" if major == '2' && minor == '3'
 end

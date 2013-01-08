@@ -11,7 +11,7 @@ module ActionMailer
     cattr_accessor :custom_letter_opener_mailer
     
     def perform_delivery_letter_opener(mail)
-      raise 'LetterOpener::DeliveryMethod has not been intitialized.' unless @@custom_letter_opener_mailer
+      raise 'LetterOpener::DeliveryMethod:InvalidOption has not been intitialized.' unless @@custom_letter_opener_mailer
       @@custom_letter_opener_mailer.deliver!(mail)
     end
 

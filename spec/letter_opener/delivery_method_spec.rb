@@ -11,6 +11,7 @@ describe LetterOpener::DeliveryMethod do
     Mail.defaults do
       delivery_method LetterOpener::DeliveryMethod, :location => context.location
     end
+
   end
 
   it 'raises an exception if no location passed' do
