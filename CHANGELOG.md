@@ -1,5 +1,6 @@
 ## Unreleased ##
 
+  * Show subject only if it's present (thanks jadehyper)
   * Show subject as title of web page (thanks statique)
 
 ## 1.0.0 ##
