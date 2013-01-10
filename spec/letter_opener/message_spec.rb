@@ -27,6 +27,18 @@ describe LetterOpener::Message do
     end
   end
 
+  describe '#sender' do
+    it 'handles one email as a string' do
+      message = described_class.new(location, mock(sender: 'sender@example.com'))
+      message.sender.should eq('sender@example.com')
+    end
+
+    it 'handles array of emails' do
+      message = described_class.new(location, mock(sender: ['sender1@example.com', 'sender2@example.com']))
+      message.sender.should eq('sender1@example.com, sender2@example.com')
+    end
+  end
+
   describe '#<=>' do
     it 'sorts rich type before plain type' do
       plain = described_class.new(location, mock(content_type: 'text/plain'))
