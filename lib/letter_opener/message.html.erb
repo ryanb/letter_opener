@@ -1,5 +1,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=<%= encoding %>">
-<title><%= h mail.subject %></title>
+<% if mail.subject %>
+  <title><%= h mail.subject %></title>
+<% end %>
 
 <style type="text/css">
   #message_headers {
@@ -59,8 +61,10 @@
       <dd><%= h reply_to %></dd>
     <% end %>
 
-    <dt>Subject:</dt>
-    <dd><strong><%= h mail.subject %></strong></dd>
+    <% if mail.subject %>
+      <dt>Subject:</dt>
+      <dd><strong><%= h mail.subject %></strong></dd>
+    <% end %>
 
     <dt>Date:</dt>
     <dd><%= Time.now.strftime("%b %e, %Y %I:%M:%S %p %Z") %></dd>
