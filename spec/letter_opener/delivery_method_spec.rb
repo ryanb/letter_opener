@@ -1,7 +1,10 @@
 require "spec_helper"
 
 describe LetterOpener::DeliveryMethod do
-  let(:location) { File.expand_path('../../../tmp/letter_opener', __FILE__) }
+  let(:location)   { File.expand_path('../../../tmp/letter_opener', __FILE__) }
+
+  let(:plain_file) { Dir["#{location}/*/plain.html"].first }
+  let(:plain)      { File.read(plain_file) }
 
   before do
     Launchy.stub(:open)
@@ -19,9 +22,6 @@ describe LetterOpener::DeliveryMethod do
   end
 
   context 'content' do
-    let(:plain_file) { Dir["#{location}/*/plain.html"].first }
-    let(:plain) { File.read(plain_file) }
-
     context 'plain' do
       before do
         Launchy.should_receive(:open)
@@ -113,8 +113,6 @@ describe LetterOpener::DeliveryMethod do
 
   context 'document with spaces in name' do
     let(:location) { File.expand_path('../../../tmp/letter_opener with space', __FILE__) }
-    let(:file)     { Dir["#{location}/*/plain.html"].first }
-    let(:plain)    { File.read(file) }
 
     before do
       Launchy.should_receive(:open)
@@ -128,7 +126,7 @@ describe LetterOpener::DeliveryMethod do
     end
 
     it 'creates plain html document' do
-      File.exist?(file)
+      File.exist?(plain_file)
     end
 
     it 'saves From filed' do
@@ -137,9 +135,6 @@ describe LetterOpener::DeliveryMethod do
   end
 
   context 'using deliver! method' do
-    let(:plain_file) { Dir["#{location}/*/plain.html"].first }
-    let(:plain) { File.read(plain_file) }
-
     before do
       Launchy.should_receive(:open)
       Mail.new do
@@ -222,6 +217,23 @@ describe LetterOpener::DeliveryMethod do
       mail.parts[0].body.should include(url)
       text.should_not include(url)
       text.should include("attachments/#{File.basename(__FILE__)}")
+    end
+  end
+
+  context 'subjectless mail' do
+    before do
+      Launchy.should_receive(:open)
+
+      Mail.deliver do
+        from     'Foo foo@example.com'
+        reply_to 'No Reply no-reply@example.com'
+        to       'Bar bar@example.com'
+        body     'World! http://example.com'
+      end
+    end
+
+    it 'creates plain html document' do
+      File.exist?(plain_file).should be_true
     end
   end
 end
