@@ -1,5 +1,6 @@
 ## Unreleased ##
 
+  * Handle `sender` field (thanks sjtipton)
   * Show subject only if it's present (thanks jadehyper)
   * Show subject as title of web page (thanks statique)
 
