@@ -15,6 +15,9 @@ Then set the delivery method in <tt>config/environments/development.rb</tt>
 
 Now any email will pop up in your browser instead of being sent. The messages are stored in <tt>tmp/letter_opener</tt>.
 
+==== For Rails 2.3.x support
+
+There is a fork that add support for Rails 2.3.x, in order to use that or just check it out you should go to https://github.com/cavi21/letter_opener
 
 == Non Rails Setup
 
