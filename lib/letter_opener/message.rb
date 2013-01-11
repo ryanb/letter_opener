@@ -11,20 +11,11 @@ module LetterOpener
         messages << new(location, mail, mail.text_part) if mail.text_part
       else
         if mail.multipart?
-          content_type = Rack::Mime.mime_type('text/html')
-          if mail.respond_to?(:all_parts)
-            html_part = mail.all_parts.find { |part| part.content_type.match(content_type) } || mail.parts.first 
-          else
-            html_part = mail.parts.find { |part| part.content_type.match(content_type) } || mail.parts.first
+          parts = mail.respond_to?(:all_parts) ? mail.all_parts : mail.parts
+          parts.map do |p|
+            p.content_type
+            messages << new(location, mail, p)
           end
-          messages << new(location, mail, html_part)
-          content_type = Rack::Mime.mime_type('text/plain')
-          if mail.respond_to?(:all_parts)
-            text_part = mail.all_parts.find { |part| part.content_type.match(content_type) } || mail.parts.first 
-          else
-            text_part = mail.parts.find { |part| part.content_type.match(content_type) } || mail.parts.first
-          end
-          messages << new(location, mail, text_part)
         end
       end
       messages << new(location, mail) if messages.empty?
