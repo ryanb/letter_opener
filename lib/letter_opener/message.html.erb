@@ -92,9 +92,9 @@
 
   <% if mail.multipart? %>
     <p class="alternate">
-      <% if type == "plain" && mail.html_part %>
+      <% if type == "plain" && mail.respond_to?('html_part') && mail.html_part %>
         <a href="rich.html">View HTML version</a>
-      <% elsif type == "rich" && mail.text_part %>
+      <% elsif type == "rich" && mail.respond_to?('text_part') && mail.text_part %>
         <a href="plain.html">View plain text version</a>
       <% end %>
     </p>

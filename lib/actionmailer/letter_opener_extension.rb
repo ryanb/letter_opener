@@ -3,7 +3,7 @@
 #
 # config.after_initialize do
 #  ActionMailer::Base.delivery_method = :letter_opener
-#  ActionMailer::Base.custom_letter_opener_mailer = LetterOpener::DeliveryMethod(:location => Rails.root.join("tmp", "letter_opener"))
+#  ActionMailer::Base.custom_letter_opener_mailer = LetterOpener::DeliveryMethod.new(:location => Rails.root.join("tmp", "letter_opener"))
 # end
             
 module ActionMailer

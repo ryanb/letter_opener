@@ -6,8 +6,27 @@ module LetterOpener
 
     def self.rendered_messages(location, mail)
       messages = []
-      messages << new(location, mail, mail.html_part) if mail.html_part
-      messages << new(location, mail, mail.text_part) if mail.text_part
+      if mail.respond_to?('html_part') || mail.respond_to?('text_part')
+        messages << new(location, mail, mail.html_part) if mail.html_part
+        messages << new(location, mail, mail.text_part) if mail.text_part
+      else
+        if mail.multipart?
+          content_type = Rack::Mime.mime_type('text/html')
+          if mail.respond_to?(:all_parts)
+            html_part = mail.all_parts.find { |part| part.content_type.match(content_type) } || mail.parts.first 
+          else
+            html_part = mail.parts.find { |part| part.content_type.match(content_type) } || mail.parts.first
+          end
+          messages << new(location, mail, html_part)
+          content_type = Rack::Mime.mime_type('text/plain')
+          if mail.respond_to?(:all_parts)
+            text_part = mail.all_parts.find { |part| part.content_type.match(content_type) } || mail.parts.first 
+          else
+            text_part = mail.parts.find { |part| part.content_type.match(content_type) } || mail.parts.first
+          end
+          messages << new(location, mail, text_part)
+        end
+      end
       messages << new(location, mail) if messages.empty?
       messages.each(&:render)
       messages.sort
