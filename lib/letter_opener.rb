@@ -6,4 +6,8 @@ require "launchy"
 
 require "letter_opener/message"
 require "letter_opener/delivery_method"
-require "letter_opener/railtie" if defined? Rails
+if defined? Rails
+  require "letter_opener/railtie" 
+  major, minor = Rails.version.split('.')
+  require "actionmailer/letter_opener_extension" if major == '2' && minor == '3'
+end

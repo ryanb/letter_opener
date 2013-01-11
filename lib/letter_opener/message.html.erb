@@ -101,10 +101,21 @@
 
   <% if mail.multipart? %>
     <p class="alternate">
-      <% if type == "plain" && mail.html_part %>
-        <a href="rich.html">View HTML version</a>
-      <% elsif type == "rich" && mail.text_part %>
-        <a href="plain.html">View plain text version</a>
+      <% if mail.respond_to?('html_part') || mail.respond_to?('text_part') %>
+        <% if type == "plain" && mail.html_part %>
+          <a href="rich.html">View HTML version</a>
+        <% elsif type == "rich" && mail.text_part %>
+          <a href="plain.html">View plain text version</a>
+        <% end %>
+      <% else %>
+        <% parts = mail.respond_to?(:all_parts) ? mail.all_parts : mail.parts %>
+        <% html_part = parts.find { |part| part.content_type.match('text/html') } %>
+        <% text_part = parts.find { |part| part.content_type.match('text/plain') } %>
+        <% if type == "plain" && html_part %>
+          <a href="rich.html">View HTML version</a>
+        <% elsif type == "rich" && text_part %>
+          <a href="plain.html">View plain text version</a>
+        <% end %>
       <% end %>
     </p>
   <% end %>

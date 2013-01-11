@@ -6,8 +6,18 @@ module LetterOpener
 
     def self.rendered_messages(location, mail)
       messages = []
-      messages << new(location, mail, mail.html_part) if mail.html_part
-      messages << new(location, mail, mail.text_part) if mail.text_part
+      if mail.respond_to?('html_part') || mail.respond_to?('text_part')
+        messages << new(location, mail, mail.html_part) if mail.html_part
+        messages << new(location, mail, mail.text_part) if mail.text_part
+      else
+        if mail.multipart?
+          parts = mail.respond_to?(:all_parts) ? mail.all_parts : mail.parts
+          parts.map do |p|
+            p.content_type
+            messages << new(location, mail, p)
+          end
+        end
+      end
       messages << new(location, mail) if messages.empty?
       messages.each(&:render)
       messages.sort
