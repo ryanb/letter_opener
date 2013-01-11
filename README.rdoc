@@ -11,7 +11,16 @@ First add the gem to your development environment and run the +bundle+ command t
 
 Then set the delivery method in <tt>config/environments/development.rb</tt>
 
+==== For Rails 3.x
+
   config.action_mailer.delivery_method = :letter_opener
+
+==== For Rails 2.3.x
+
+  config.after_initialize do
+    ActionMailer::Base.delivery_method = :letter_opener
+    ActionMailer::Base.custom_letter_opener_mailer = LetterOpener::DeliveryMethod.new(:location => Rails.root.join("tmp", "letter_opener"))
+  end
 
 Now any email will pop up in your browser instead of being sent. The messages are stored in <tt>tmp/letter_opener</tt>.
 
