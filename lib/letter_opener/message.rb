@@ -70,6 +70,10 @@ module LetterOpener
       @from ||= Array(@mail.from).join(", ")
     end
 
+    def sender
+      @sender ||= Array(@mail.sender).join(", ")
+    end
+
     def to
       @to ||= Array(@mail.to).join(", ")
     end
