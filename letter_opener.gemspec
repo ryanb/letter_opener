@@ -11,8 +11,8 @@ Gem::Specification.new do |s|
   s.require_path = "lib"
 
   s.add_dependency 'launchy', '>= 2.0.4'
-  s.add_development_dependency 'rspec', '~> 2.6.0'
-  s.add_development_dependency 'mail', '~> 2.3.0'
+  s.add_development_dependency 'rspec', '~> 2.12.0'
+  s.add_development_dependency 'mail', '~> 2.5.0'
 
   s.rubyforge_project = s.name
   s.required_rubygems_version = ">= 1.3.4"
