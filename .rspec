@@ -1,2 +1,3 @@
 --color
 --backtrace
+--order rand
