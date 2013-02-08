@@ -1,5 +1,5 @@
-## Unreleased ##
-  
+## 1.1.0 ##
+
   * Update Launchy dependency to `~> 2.2.0` (thanks [webdevotion](https://github.com/webdevotion))
   * Handle `sender` field (thanks [sjtipton](https://github.com/sjtipton))
   * Show subject only if it's present (thanks [jadehyper](https://github.com/jadehyper))
