@@ -225,6 +225,31 @@ describe LetterOpener::DeliveryMethod do
     end
   end
 
+  context 'attachments with non-word characters in the filename' do
+    before do
+      Mail.deliver do
+        from      'foo@example.com'
+        to        'bar@example.com'
+        subject   'With attachments'
+        text_part do
+          body 'This is <plain> text'
+        end
+        attachments['non word:chars/used,01.txt'] = File.read(__FILE__)
+      end
+    end
+
+    it 'creates attachments dir with attachment' do
+      attachment = Dir["#{location}/*/attachments/non_word_chars_used_01.txt"].first
+      File.exists?(attachment).should be_true
+    end
+
+    it 'saves attachment name' do
+      plain = File.read(Dir["#{location}/*/plain.html"].first)
+      plain.should include('non_word_chars_used_01.txt')
+    end
+  end
+
+
   context 'subjectless mail' do
     before do
       Launchy.should_receive(:open)
