@@ -1,3 +1,8 @@
+## Unreleased ##
+
+  * Change all nonword chars in filename of attachment to underscore so
+    it can be saved on oall platforms. (thanks [phallstrom](https://github.com/phallstrom))
+
 ## 1.1.0 ##
 
   * Update Launchy dependency to `~> 2.2.0` (thanks [webdevotion](https://github.com/webdevotion))
