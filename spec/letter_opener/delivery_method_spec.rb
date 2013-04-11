@@ -225,7 +225,7 @@ describe LetterOpener::DeliveryMethod do
     end
   end
 
-  context 'attachments on with forward slashes in the filename' do
+  context 'attachments with non-word characters in the filename' do
     before do
       Mail.deliver do
         from      'foo@example.com'
@@ -234,18 +234,18 @@ describe LetterOpener::DeliveryMethod do
         text_part do
           body 'This is <plain> text'
         end
-        attachments['slashes/colons.txt'] = File.read(__FILE__)
+        attachments['non word:chars/used,01.txt'] = File.read(__FILE__)
       end
     end
 
     it 'creates attachments dir with attachment' do
-      attachment = Dir["#{location}/*/attachments/slashes:colons.txt"].first
+      attachment = Dir["#{location}/*/attachments/non_word_chars_used_01.txt"].first
       File.exists?(attachment).should be_true
     end
 
     it 'saves attachment name' do
       plain = File.read(Dir["#{location}/*/plain.html"].first)
-      plain.should include('slashes:colons.txt')
+      plain.should include('non_word_chars_used_01.txt')
     end
   end
 
