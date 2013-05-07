@@ -1,5 +1,5 @@
 ## Unreleased ##
-
+  * Update Launchy dependency to `~> 2.2` (thanks [JeanMertz](https://github.com/JeanMertz))
   * Change all nonword chars in filename of attachment to underscore so
     it can be saved on oall platforms. (thanks [phallstrom](https://github.com/phallstrom))
 
