@@ -12,7 +12,7 @@ module LetterOpener
     def deliver!(mail)
       location = File.join(settings[:location], "#{Time.now.to_i}_#{Digest::SHA1.hexdigest(mail.encoded)[0..6]}")
       messages = Message.rendered_messages(location, mail)
-      Launchy.open(URI.escape(messages.first.filepath))
+      Launchy.open("file://" + URI.parse(URI.escape(messages.first.filepath)).to_s)
     end
   end
 end
