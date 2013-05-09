@@ -21,6 +21,37 @@ describe LetterOpener::DeliveryMethod do
     lambda { LetterOpener::DeliveryMethod.new(location: "foo") }.should_not raise_exception
   end
 
+  context 'integration' do
+    before do
+      Launchy.unstub(:open)
+      ENV['LAUNCHY_DRY_RUN'] = 'true'
+    end
+
+    context 'normal location path' do
+      it 'opens email' do
+        expect {
+          Mail.deliver do
+            from 'Foo foo@example.com'
+            body 'World! http://example.com'
+          end
+        }.not_to raise_error(Launchy::ApplicationNotFoundError)
+      end
+    end
+
+    context 'with spaces in location path' do
+      let(:location) { File.expand_path('../../../tmp/letter_opener with space', __FILE__) }
+
+      it 'opens email' do
+        expect {
+          Mail.deliver do
+            from 'Foo foo@example.com'
+            body 'World! http://example.com'
+          end
+        }.not_to raise_error(Launchy::ApplicationNotFoundError)
+      end
+    end
+  end
+
   context 'content' do
     context 'plain' do
       before do
