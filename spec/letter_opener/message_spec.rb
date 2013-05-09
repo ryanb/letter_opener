@@ -27,6 +27,30 @@ describe LetterOpener::Message do
     end
   end
 
+  describe '#cc' do
+    it 'handles one cc email as a string' do
+      message = described_class.new(location, mock(cc: 'test@example.com'))
+      message.cc.should eq('test@example.com')
+    end
+
+    it 'handles array of cc emails' do
+      message = described_class.new(location, mock(cc: ['test1@example.com', 'test2@example.com']))
+      message.cc.should eq('test1@example.com, test2@example.com')
+    end
+  end
+
+  describe '#bcc' do
+    it 'handles one bcc email as a string' do
+      message = described_class.new(location, mock(bcc: 'test@example.com'))
+      message.bcc.should eq('test@example.com')
+    end
+
+    it 'handles array of bcc emails' do
+      message = described_class.new(location, mock(bcc: ['test1@example.com', 'test2@example.com']))
+      message.bcc.should eq('test1@example.com, test2@example.com')
+    end
+  end
+
   describe '#sender' do
     it 'handles one email as a string' do
       message = described_class.new(location, mock(sender: 'sender@example.com'))

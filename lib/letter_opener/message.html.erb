@@ -79,14 +79,14 @@
       <dd><%= h to %></dd>
     <% end %>
 
-    <% if mail.cc %>
+    <% unless cc.empty? %>
       <dt>CC:</dt>
-      <dd><%= h mail.cc.join(", ") %></dd>
+      <dd><%= h cc %></dd>
     <% end %>
 
-    <% if mail.bcc %>
+    <% unless bcc.empty? %>
       <dt>BCC:</dt>
-      <dd><%= h mail.bcc.join(", ") %></dd>
+      <dd><%= h bcc %></dd>
     <% end %>
 
     <% if @attachments.any? %>

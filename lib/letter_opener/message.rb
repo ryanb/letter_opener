@@ -79,6 +79,14 @@ module LetterOpener
       @to ||= Array(@mail.to).join(", ")
     end
 
+    def cc
+      @cc ||= Array(@mail.cc).join(", ")
+    end
+
+    def bcc
+      @bcc ||= Array(@mail.bcc).join(", ")
+    end
+
     def reply_to
       @reply_to ||= Array(@mail.reply_to).join(", ")
     end
