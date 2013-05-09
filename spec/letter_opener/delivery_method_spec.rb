@@ -31,6 +31,8 @@ describe LetterOpener::DeliveryMethod do
           sender   'Baz baz@example.com'
           reply_to 'No Reply no-reply@example.com'
           to       'Bar bar@example.com'
+          cc      'Qux qux@example.com'
+          bcc      'Qux qux@example.com'
           subject  'Hello'
           body     'World! http://example.com'
         end

@@ -81,12 +81,12 @@
 
     <% if mail.cc %>
       <dt>CC:</dt>
-      <dd><%= h mail.cc.join(", ") %></dd>
+      <dd><%= h mail.cc %></dd>
     <% end %>
 
     <% if mail.bcc %>
       <dt>BCC:</dt>
-      <dd><%= h mail.bcc.join(", ") %></dd>
+      <dd><%= h mail.bcc %></dd>
     <% end %>
 
     <% if @attachments.any? %>
