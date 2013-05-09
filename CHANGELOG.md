@@ -3,7 +3,7 @@
   * Use `file://` uri scheme since Launcy can't open escaped URL without it. (thanks [Adrian2112](https://github.com/Adrian2112))
   * Update Launchy dependency to `~> 2.2` (thanks [JeanMertz](https://github.com/JeanMertz))
   * Change all nonword chars in filename of attachment to underscore so
-    it can be saved on oall platforms. (thanks [phallstrom](https://github.com/phallstrom))
+    it can be saved on all platforms. (thanks [phallstrom](https://github.com/phallstrom))
 
 ## 1.1.0 ##
 
