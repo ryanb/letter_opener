@@ -1,4 +1,5 @@
-## Unreleased ##
+## 1.1.1 ##
+
   * Handle cc and bcc as array of emails. (thanks [jordandcarter](https://github.com/jordandcarter))
   * Use `file://` uri scheme since Launcy can't open escaped URL without it. (thanks [Adrian2112](https://github.com/Adrian2112))
   * Update Launchy dependency to `~> 2.2` (thanks [JeanMertz](https://github.com/JeanMertz))
