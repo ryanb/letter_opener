@@ -1,3 +1,7 @@
+### Unreleased ###
+
+  * Use `file:///` uri scheme to fix Launchy on Windows.
+
 ## 1.1.1 ##
 
   * Handle cc and bcc as array of emails. (thanks [jordandcarter](https://github.com/jordandcarter))
