@@ -4,7 +4,7 @@ describe LetterOpener::DeliveryMethod do
   let(:location)   { File.expand_path('../../../tmp/letter_opener', __FILE__) }
 
   let(:plain_file) { Dir["#{location}/*/plain.html"].first }
-  let(:plain)      { File.read(plain_file) }
+  let(:plain)      { CGI.unescape_html(File.read(plain_file)) }
 
   before do
     Launchy.stub(:open)
@@ -58,12 +58,12 @@ describe LetterOpener::DeliveryMethod do
         Launchy.should_receive(:open)
 
         Mail.deliver do
-          from     'Foo foo@example.com'
-          sender   'Baz baz@example.com'
-          reply_to 'No Reply no-reply@example.com'
-          to       'Bar bar@example.com'
-          cc       'Qux qux@example.com'
-          bcc      'Qux qux@example.com'
+          from     'Foo <foo@example.com>'
+          sender   'Baz <baz@example.com>'
+          reply_to 'No Reply <no-reply@example.com>'
+          to       'Bar <bar@example.com>'
+          cc       'Qux <qux@example.com>'
+          bcc      'Qux <qux@example.com>'
           subject  'Hello'
           body     'World! http://example.com'
         end
@@ -74,19 +74,19 @@ describe LetterOpener::DeliveryMethod do
       end
 
       it 'saves From field' do
-        plain.should include("Foo foo@example.com")
+        plain.should include("Foo <foo@example.com>")
       end
 
       it 'saves Sender field' do
-        plain.should include("Baz baz@example.com")
+        plain.should include("Baz <baz@example.com>")
       end
 
       it 'saves Reply-to field' do
-        plain.should include("No Reply no-reply@example.com")
+        plain.should include("No Reply <no-reply@example.com>")
       end
 
       it 'saves To field' do
-        plain.should include("Bar bar@example.com")
+        plain.should include("Bar <bar@example.com>")
       end
 
       it 'saves Subject field' do
@@ -100,7 +100,7 @@ describe LetterOpener::DeliveryMethod do
 
     context 'multipart' do
       let(:rich_file) { Dir["#{location}/*/rich.html"].first }
-      let(:rich) { File.read(rich_file) }
+      let(:rich) { CGI.unescape_html(File.read(rich_file)) }
 
       before do
         Launchy.should_receive(:open)
@@ -132,7 +132,7 @@ describe LetterOpener::DeliveryMethod do
       end
 
       it 'saves text part' do
-        plain.should include("This is &lt;plain&gt; text")
+        plain.should include("This is <plain> text")
       end
 
       it 'saves html part' do
@@ -140,11 +140,11 @@ describe LetterOpener::DeliveryMethod do
       end
 
       it 'saves escaped Subject field' do
-        plain.should include("Many parts with &lt;html&gt;")
+        plain.should include("Many parts with <html>")
       end
 
       it 'shows subject as title' do
-        rich.should include("<title>Many parts with &lt;html&gt;</title>")
+        rich.should include("<title>Many parts with <html></title>")
       end
     end
   end
@@ -156,7 +156,7 @@ describe LetterOpener::DeliveryMethod do
       Launchy.should_receive(:open)
 
       Mail.deliver do
-        from     'Foo foo@example.com'
+        from     'Foo <foo@example.com>'
         to       'bar@example.com'
         subject  'Hello'
         body     'World!'
@@ -168,7 +168,7 @@ describe LetterOpener::DeliveryMethod do
     end
 
     it 'saves From filed' do
-      plain.should include("Foo foo@example.com")
+      plain.should include("Foo <foo@example.com>")
     end
   end
 
