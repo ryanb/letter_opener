@@ -68,27 +68,27 @@ module LetterOpener
     end
 
     def from
-      @from ||= Array(@mail.from).join(", ")
+      @from ||= Array(@mail['From']).join(", ")
     end
 
     def sender
-      @sender ||= Array(@mail.sender).join(", ")
+      @sender ||= Array(@mail['Sender']).join(", ")
     end
 
     def to
-      @to ||= Array(@mail.to).join(", ")
+      @to ||= Array(@mail['To']).join(", ")
     end
 
     def cc
-      @cc ||= Array(@mail.cc).join(", ")
+      @cc ||= Array(@mail['Cc']).join(", ")
     end
 
     def bcc
-      @bcc ||= Array(@mail.bcc).join(", ")
+      @bcc ||= Array(@mail['Bcc']).join(", ")
     end
 
     def reply_to
-      @reply_to ||= Array(@mail.reply_to).join(", ")
+      @reply_to ||= Array(@mail['Reply-To']).join(", ")
     end
 
     def type

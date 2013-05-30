@@ -58,12 +58,12 @@ describe LetterOpener::DeliveryMethod do
         Launchy.should_receive(:open)
 
         Mail.deliver do
-          from     'Foo foo@example.com'
-          sender   'Baz baz@example.com'
-          reply_to 'No Reply no-reply@example.com'
-          to       'Bar bar@example.com'
-          cc       'Qux qux@example.com'
-          bcc      'Qux qux@example.com'
+          from     'Foo <foo@example.com>'
+          sender   'Baz <baz@example.com>'
+          reply_to 'No Reply <no-reply@example.com>'
+          to       'Bar <bar@example.com>'
+          cc       'Qux <qux@example.com>'
+          bcc      'Qux <qux@example.com>'
           subject  'Hello'
           body     'World! http://example.com'
         end
@@ -74,19 +74,19 @@ describe LetterOpener::DeliveryMethod do
       end
 
       it 'saves From field' do
-        plain.should include("Foo foo@example.com")
+        plain.should include("Foo <foo@example.com>")
       end
 
       it 'saves Sender field' do
-        plain.should include("Baz baz@example.com")
+        plain.should include("Baz <baz@example.com>")
       end
 
       it 'saves Reply-to field' do
-        plain.should include("No Reply no-reply@example.com")
+        plain.should include("No Reply <no-reply@example.com>")
       end
 
       it 'saves To field' do
-        plain.should include("Bar bar@example.com")
+        plain.should include("Bar <bar@example.com>")
       end
 
       it 'saves Subject field' do
@@ -156,7 +156,7 @@ describe LetterOpener::DeliveryMethod do
       Launchy.should_receive(:open)
 
       Mail.deliver do
-        from     'Foo foo@example.com'
+        from     'Foo <foo@example.com>'
         to       'bar@example.com'
         subject  'Hello'
         body     'World!'
@@ -168,7 +168,7 @@ describe LetterOpener::DeliveryMethod do
     end
 
     it 'saves From filed' do
-      plain.should include("Foo foo@example.com")
+      plain.should include("Foo <foo@example.com>")
     end
   end
 
