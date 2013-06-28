@@ -1,4 +1,4 @@
-### Unreleased ###
+## 1.1.2 ##
 
   * Show formatted display names in html template (thanks [ClaireMcGinty](https://github.com/ClaireMcGinty))
   * Use `file:///` uri scheme to fix Launchy on Windows.
