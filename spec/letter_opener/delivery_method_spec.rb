@@ -17,8 +17,8 @@ describe LetterOpener::DeliveryMethod do
   end
 
   it 'raises an exception if no location passed' do
-    lambda { LetterOpener::DeliveryMethod.new }.should raise_exception(LetterOpener::DeliveryMethod::InvalidOption)
-    lambda { LetterOpener::DeliveryMethod.new(location: "foo") }.should_not raise_exception
+    expect { LetterOpener::DeliveryMethod.new }.to raise_exception(LetterOpener::DeliveryMethod::InvalidOption)
+    expect { LetterOpener::DeliveryMethod.new(location: "foo") }.to_not raise_exception
   end
 
   context 'integration' do
@@ -55,7 +55,7 @@ describe LetterOpener::DeliveryMethod do
   context 'content' do
     context 'plain' do
       before do
-        Launchy.should_receive(:open)
+        expect(Launchy).to receive(:open)
 
         Mail.deliver do
           from     'Foo <foo@example.com>'
@@ -70,31 +70,31 @@ describe LetterOpener::DeliveryMethod do
       end
 
       it 'creates plain html document' do
-        File.exist?(plain_file).should be_true
+        expect(File.exist?(plain_file)).to be_true
       end
 
       it 'saves From field' do
-        plain.should include("Foo <foo@example.com>")
+        expect(plain).to include("Foo <foo@example.com>")
       end
 
       it 'saves Sender field' do
-        plain.should include("Baz <baz@example.com>")
+        expect(plain).to include("Baz <baz@example.com>")
       end
 
       it 'saves Reply-to field' do
-        plain.should include("No Reply <no-reply@example.com>")
+        expect(plain).to include("No Reply <no-reply@example.com>")
       end
 
       it 'saves To field' do
-        plain.should include("Bar <bar@example.com>")
+        expect(plain).to include("Bar <bar@example.com>")
       end
 
       it 'saves Subject field' do
-        plain.should include("Hello")
+        expect(plain).to include("Hello")
       end
 
       it 'saves Body with autolink' do
-        plain.should include('World! <a href="http://example.com">http://example.com</a>')
+        expect(plain).to include('World! <a href="http://example.com">http://example.com</a>')
       end
     end
 
@@ -103,7 +103,7 @@ describe LetterOpener::DeliveryMethod do
       let(:rich) { CGI.unescape_html(File.read(rich_file)) }
 
       before do
-        Launchy.should_receive(:open)
+        expect(Launchy).to receive(:open)
 
         Mail.deliver do
           from    'foo@example.com'
@@ -120,31 +120,31 @@ describe LetterOpener::DeliveryMethod do
       end
 
       it 'creates plain html document' do
-        File.exist?(plain_file).should be_true
+        expect(File.exist?(plain_file)).to be_true
       end
 
       it 'creates rich html document' do
-        File.exist?(rich_file).should be_true
+        expect(File.exist?(rich_file)).to be_true
       end
 
       it 'shows link to rich html version' do
-        plain.should include("View HTML version")
+        expect(plain).to include("View HTML version")
       end
 
       it 'saves text part' do
-        plain.should include("This is <plain> text")
+        expect(plain).to include("This is <plain> text")
       end
 
       it 'saves html part' do
-        rich.should include("<h1>This is HTML</h1>")
+        expect(rich).to include("<h1>This is HTML</h1>")
       end
 
       it 'saves escaped Subject field' do
-        plain.should include("Many parts with <html>")
+        expect(plain).to include("Many parts with <html>")
       end
 
       it 'shows subject as title' do
-        rich.should include("<title>Many parts with <html></title>")
+        expect(rich).to include("<title>Many parts with <html></title>")
       end
     end
   end
@@ -153,7 +153,7 @@ describe LetterOpener::DeliveryMethod do
     let(:location) { File.expand_path('../../../tmp/letter_opener with space', __FILE__) }
 
     before do
-      Launchy.should_receive(:open)
+      expect(Launchy).to receive(:open)
 
       Mail.deliver do
         from     'Foo <foo@example.com>'
@@ -168,13 +168,13 @@ describe LetterOpener::DeliveryMethod do
     end
 
     it 'saves From filed' do
-      plain.should include("Foo <foo@example.com>")
+      expect(plain).to include("Foo <foo@example.com>")
     end
   end
 
   context 'using deliver! method' do
     before do
-      Launchy.should_receive(:open)
+      expect(Launchy).to receive(:open)
       Mail.new do
         from    'foo@example.com'
         to      'bar@example.com'
@@ -184,23 +184,23 @@ describe LetterOpener::DeliveryMethod do
     end
 
     it 'creates plain html document' do
-      File.exist?(plain_file).should be_true
+      expect(File.exist?(plain_file)).to be_true
     end
 
     it 'saves From field' do
-      plain.should include("foo@example.com")
+      expect(plain).to include("foo@example.com")
     end
 
     it 'saves To field' do
-      plain.should include("bar@example.com")
+      expect(plain).to include("bar@example.com")
     end
 
     it 'saves Subject field' do
-      plain.should include("Hello")
+      expect(plain).to include("Hello")
     end
 
     it 'saves Body field' do
-      plain.should include("World!")
+      expect(plain).to include("World!")
     end
   end
 
@@ -219,12 +219,12 @@ describe LetterOpener::DeliveryMethod do
 
     it 'creates attachments dir with attachment' do
       attachment = Dir["#{location}/*/attachments/#{File.basename(__FILE__)}"].first
-      File.exists?(attachment).should be_true
+      expect(File.exists?(attachment)).to be_true
     end
 
     it 'saves attachment name' do
       plain = File.read(Dir["#{location}/*/plain.html"].first)
-      plain.should include(File.basename(__FILE__))
+      expect(plain).to include(File.basename(__FILE__))
     end
   end
 
@@ -247,14 +247,14 @@ describe LetterOpener::DeliveryMethod do
 
     it 'creates attachments dir with attachment' do
       attachment = Dir["#{location}/*/attachments/#{File.basename(__FILE__)}"].first
-      File.exists?(attachment).should be_true
+      expect(File.exists?(attachment)).to be_true
     end
 
     it 'replaces inline attachment urls' do
       text = File.read(Dir["#{location}/*/rich.html"].first)
-      mail.parts[0].body.should include(url)
-      text.should_not include(url)
-      text.should include("attachments/#{File.basename(__FILE__)}")
+      expect(mail.parts[0].body).to include(url)
+      expect(text).to_not include(url)
+      expect(text).to include("attachments/#{File.basename(__FILE__)}")
     end
   end
 
@@ -273,19 +273,19 @@ describe LetterOpener::DeliveryMethod do
 
     it 'creates attachments dir with attachment' do
       attachment = Dir["#{location}/*/attachments/non_word_chars_used_01.txt"].first
-      File.exists?(attachment).should be_true
+      expect(File.exists?(attachment)).to be_true
     end
 
     it 'saves attachment name' do
       plain = File.read(Dir["#{location}/*/plain.html"].first)
-      plain.should include('non_word_chars_used_01.txt')
+      expect(plain).to include('non_word_chars_used_01.txt')
     end
   end
 
 
   context 'subjectless mail' do
     before do
-      Launchy.should_receive(:open)
+      expect(Launchy).to receive(:open)
 
       Mail.deliver do
         from     'Foo foo@example.com'
@@ -296,7 +296,7 @@ describe LetterOpener::DeliveryMethod do
     end
 
     it 'creates plain html document' do
-      File.exist?(plain_file).should be_true
+      expect(File.exist?(plain_file)).to be_true
     end
   end
 end
