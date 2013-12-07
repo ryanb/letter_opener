@@ -153,12 +153,12 @@ describe LetterOpener::Message do
   describe '#auto_link' do
     let(:message){ described_class.new(location, mail) }
 
-    it 'should not modify unlinkable text' do
+    it 'does not modify unlinkable text' do
       text = 'the quick brown fox jumped over the lazy dog'
       expect(message.auto_link(text)).to eq(text)
     end
 
-    it 'should add links for http' do
+    it 'adds links for http' do
       raw = "Link to http://localhost:3000/example/path path"
       linked = "Link to <a href=\"http://localhost:3000/example/path\">http://localhost:3000/example/path</a> path"
       expect(message.auto_link(raw)).to eq(linked)
