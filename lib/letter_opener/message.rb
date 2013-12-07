@@ -100,8 +100,8 @@ module LetterOpener
     end
 
     def auto_link(text)
-      text.gsub(URI.regexp(%W[https http])) do
-        "<a href=\"#{$&}\">#{$&}</a>"
+      text.gsub(URI.regexp(%W[https http])) do |link|
+        "<a href=\"#{ link }\">#{ link }</a>"
       end
     end
 
