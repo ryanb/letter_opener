@@ -3,7 +3,7 @@ require 'spec_helper'
 describe LetterOpener::Message do
   let(:location) { File.expand_path('../../../tmp/letter_opener', __FILE__) }
 
-  def mail(options)
+  def mail(options={})
     Mail.new(options)
   end
 
@@ -144,9 +144,24 @@ describe LetterOpener::Message do
 
   describe '#<=>' do
     it 'sorts rich type before plain type' do
-      plain = described_class.new(location, mock(content_type: 'text/plain'))
-      rich  = described_class.new(location, mock(content_type: 'text/html'))
+      plain = described_class.new(location, double(content_type: 'text/plain'))
+      rich  = described_class.new(location, double(content_type: 'text/html'))
       expect([plain, rich].sort).to eq([rich, plain])
+    end
+  end
+
+  describe '#auto_link' do
+    let(:message){ described_class.new(location, mail) }
+
+    it 'should not modify unlinkable text' do
+      text = 'the quick brown fox jumped over the lazy dog'
+      expect(message.auto_link(text)).to eq(text)
+    end
+
+    it 'should add links for http' do
+      raw = "Link to http://localhost:3000/example/path path"
+      linked = "Link to <a href=\"http://localhost:3000/example/path\">http://localhost:3000/example/path</a> path"
+      expect(message.auto_link(raw)).to eq(linked)
     end
   end
 end

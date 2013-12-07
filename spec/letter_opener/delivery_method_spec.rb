@@ -29,12 +29,13 @@ describe LetterOpener::DeliveryMethod do
 
     context 'normal location path' do
       it 'opens email' do
+        expect($stdout).to receive(:puts)
         expect {
           Mail.deliver do
             from 'Foo foo@example.com'
             body 'World! http://example.com'
           end
-        }.not_to raise_error(Launchy::ApplicationNotFoundError)
+        }.not_to raise_error
       end
     end
 
@@ -42,12 +43,13 @@ describe LetterOpener::DeliveryMethod do
       let(:location) { File.expand_path('../../../tmp/letter_opener with space', __FILE__) }
 
       it 'opens email' do
+        expect($stdout).to receive(:puts)
         expect {
           Mail.deliver do
             from 'Foo foo@example.com'
             body 'World! http://example.com'
           end
-        }.not_to raise_error(Launchy::ApplicationNotFoundError)
+        }.not_to raise_error
       end
     end
   end
