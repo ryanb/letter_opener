@@ -1,3 +1,7 @@
+## master
+
+  * Fix auto_link() which in some cases would return an empty <a> tag for plain text messages. (thanks [Kevin McPhillips](https://github.com/kmcphillips))
+
 ## 1.1.2 ##
 
   * Show formatted display names in html template (thanks [ClaireMcGinty](https://github.com/ClaireMcGinty))
