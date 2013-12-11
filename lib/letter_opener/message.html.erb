@@ -1,118 +1,126 @@
-<meta http-equiv="Content-Type" content="text/html; charset=<%= encoding %>">
-<% if mail.subject %>
-  <title><%= h mail.subject %></title>
-<% end %>
-
-<style type="text/css">
-  #message_headers {
-    width: 100%;
-    padding: 10px 0 0 0;
-    margin: 0 0 10px;
-    background: #fff;
-    font-size: 12px;
-    font-family: "Lucida Grande";
-    border-bottom: 1px solid #dedede;
-    overflow: auto;
-  }
-
-  #message_headers dl {
-    float: left;
-    margin: 0 0 10px 0;
-    padding: 0;
-  }
-
-  #message_headers dt {
-    width: 92px;
-    padding: 1px;
-    margin: 0;
-    float: left;
-    text-align: right;
-    font-weight: bold;
-    color: #7f7f7f;
-  }
-
-  #message_headers dd {
-    margin: 0 0 0 102px;
-    padding: 1px;
-  }
-
-  #message_headers p.alternate {
-    float: right;
-    margin: 0;
-  }
-
-  #message_headers p.alternate a {
-    color: #09c;
-  }
-
-  pre#message_body {
-    padding: 10px;
-    word-wrap: break-word;
-  }
-</style>
-
-<div id="message_headers">
-  <dl>
-    <dt>From:</dt>
-    <dd><%= h from %></dd>
-
-    <% unless sender.empty? %>
-      <dt>Sender:</dt>
-      <dd><%= h sender %></dd>
-    <% end %>
-
-    <% unless reply_to.empty? %>
-      <dt>Reply-To:</dt>
-      <dd><%= h reply_to %></dd>
-    <% end %>
-
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=<%= encoding %>">
     <% if mail.subject %>
-      <dt>Subject:</dt>
-      <dd><strong><%= h mail.subject %></strong></dd>
+      <title><%= h mail.subject %></title>
     <% end %>
 
-    <dt>Date:</dt>
-    <dd><%= Time.now.strftime("%b %e, %Y %I:%M:%S %p %Z") %></dd>
+    <style type="text/css">
+      #container {
+        margin: 10px auto;
+        width: 800px;
+      }
+      #message_headers {
+        background: #fff;
+        font-size: 12px;
+        font-family: "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+        border-bottom: 1px solid #dedede;
+        margin-bottom: 10px;
+        overflow: auto;
+      }
 
-    <% unless to.empty? %>
-      <dt>To:</dt>
-      <dd><%= h to %></dd>
-    <% end %>
+      #message_headers dl {
+        float: left;
+        line-height: 1.3em;
+        padding: 0;
+      }
 
-    <% unless cc.empty? %>
-      <dt>CC:</dt>
-      <dd><%= h cc %></dd>
-    <% end %>
+      #message_headers dt {
+        width: 92px;
+        margin: 0;
+        float: left;
+        text-align: right;
+        font-weight: bold;
+        color: #7f7f7f;
+      }
 
-    <% unless bcc.empty? %>
-      <dt>BCC:</dt>
-      <dd><%= h bcc %></dd>
-    <% end %>
+      #message_headers dd {
+        margin: 0 0 0 102px;
+      }
 
-    <% if @attachments.any? %>
-      <dt>Attachments:</dt>
-      <dd>
-      <% @attachments.each do |filename, path| %>
-        <a href="<%= path %>"><%= filename %></a>&nbsp;
+      #message_headers p.alternate {
+        float: right;
+        margin: 0;
+      }
+
+      #message_headers p.alternate a {
+        color: #09c;
+      }
+
+      pre#message_body {
+        padding: 4px;
+        white-space: pre-wrap;
+        border: 1px solid #eee;
+        background-color: #fcfcfc;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="container">
+      <div id="message_headers">
+        <dl>
+          <dt>From:</dt>
+          <dd><%= h from %></dd>
+
+          <% unless sender.empty? %>
+            <dt>Sender:</dt>
+            <dd><%= h sender %></dd>
+          <% end %>
+
+          <% unless reply_to.empty? %>
+            <dt>Reply-To:</dt>
+            <dd><%= h reply_to %></dd>
+          <% end %>
+
+          <% if mail.subject %>
+            <dt>Subject:</dt>
+            <dd><strong><%= h mail.subject %></strong></dd>
+          <% end %>
+
+          <dt>Date:</dt>
+          <dd><%= Time.now.strftime("%b %e, %Y %I:%M:%S %p %Z") %></dd>
+
+          <% unless to.empty? %>
+            <dt>To:</dt>
+            <dd><%= h to %></dd>
+          <% end %>
+
+          <% unless cc.empty? %>
+            <dt>CC:</dt>
+            <dd><%= h cc %></dd>
+          <% end %>
+
+          <% unless bcc.empty? %>
+            <dt>BCC:</dt>
+            <dd><%= h bcc %></dd>
+          <% end %>
+
+          <% if @attachments.any? %>
+            <dt>Attachments:</dt>
+            <dd>
+            <% @attachments.each do |filename, path| %>
+              <a href="<%= path %>"><%= filename %></a>&nbsp;
+            <% end %>
+            </dd>
+          <% end %>
+        </dl>
+
+        <% if mail.multipart? %>
+          <p class="alternate">
+            <% if type == "plain" && mail.html_part %>
+              <a href="rich.html">View HTML version</a>
+            <% elsif type == "rich" && mail.text_part %>
+              <a href="plain.html">View plain text version</a>
+            <% end %>
+          </p>
+        <% end %>
+      </div>
+
+      <% if type == "plain" %>
+        <pre id="message_body"><%= auto_link(h(body)) %></pre>
+      <% else %>
+        <%= body %>
       <% end %>
-      </dd>
-    <% end %>
-  </dl>
-
-  <% if mail.multipart? %>
-    <p class="alternate">
-      <% if type == "plain" && mail.html_part %>
-        <a href="rich.html">View HTML version</a>
-      <% elsif type == "rich" && mail.text_part %>
-        <a href="plain.html">View plain text version</a>
-      <% end %>
-    </p>
-  <% end %>
-</div>
-
-<% if type == "plain" %>
-  <pre id="message_body"><%= auto_link(h(body)) %></pre>
-<% else %>
-  <%= body %>
-<% end %>
-
+    </div>
+  </body>
+</html>
