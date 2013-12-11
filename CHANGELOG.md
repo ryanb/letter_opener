@@ -1,6 +1,7 @@
-## master
+## 1.2.0 ##
 
   * Fix auto_link() which in some cases would return an empty <a> tag for plain text messages. (thanks [Kevin McPhillips](https://github.com/kmcphillips))
+  * Update styles. (thanks [Adam Doppelt](https://github.com/gurgeous))
 
 ## 1.1.2 ##
 
