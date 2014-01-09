@@ -57,7 +57,7 @@ module LetterOpener
 
     def body
       @body ||= begin
-        body = (@part && @part.body || @mail.body).to_s
+        body = (@part || @mail).decoded
 
         mail.attachments.each do |attachment|
           body.gsub!(attachment.url, "attachments/#{attachment.filename}")
