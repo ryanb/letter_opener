@@ -1,3 +1,7 @@
+## master ##
+
+ * Fix message body encoding is observed correctly in QP CTE. (thanks [Mark Dodwell](https://github.com/mkdynamic))
+ 
 ## 1.2.0 ##
 
   * Fix auto_link() which in some cases would return an empty <a> tag for plain text messages. (thanks [Kevin McPhillips](https://github.com/kmcphillips))
