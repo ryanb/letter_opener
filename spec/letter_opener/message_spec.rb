@@ -1,10 +1,11 @@
+# encoding: utf-8
 require 'spec_helper'
 
 describe LetterOpener::Message do
   let(:location) { File.expand_path('../../../tmp/letter_opener', __FILE__) }
 
-  def mail(options={})
-    Mail.new(options)
+  def mail(options={}, &blk)
+    Mail.new(options, &blk)
   end
 
   describe '#reply_to' do
@@ -162,6 +163,42 @@ describe LetterOpener::Message do
       raw = "Link to http://localhost:3000/example/path path"
       linked = "Link to <a href=\"http://localhost:3000/example/path\">http://localhost:3000/example/path</a> path"
       expect(message.auto_link(raw)).to eq(linked)
+    end
+  end
+
+  describe '#body' do
+    it 'handles UTF-8 charset body correctly, with QP CTE, for a non-multipart message' do
+      mail = mail(:sender => 'sender@example.com') do
+        content_type "text/html; charset=UTF-8"
+        content_transfer_encoding 'quoted-printable'
+        body "☃"
+      end
+      message = described_class.new(location, mail)
+      expect(message.body.encoding.name).to eq('UTF-8')
+    end
+
+    it 'handles UTF-8 charset HTML part body correctly, with QP CTE, for a multipart message' do
+      mail = mail(:sender => 'sender@example.com') do
+        html_part do
+          content_type "text/html; charset=UTF-8"
+          content_transfer_encoding 'quoted-printable'
+          body "☃"
+        end
+      end
+      message = described_class.new(location, mail, mail.html_part)
+      expect(message.body.encoding.name).to eq('UTF-8')
+    end
+
+    it 'handles UTF-8 charset text part body correctly, with QP CTE, for a multipart message' do
+      mail = mail(:sender => 'sender@example.com') do
+        text_part do
+          content_type "text/plain; charset=UTF-8"
+          content_transfer_encoding 'quoted-printable'
+          body "☃"
+        end
+      end
+      message = described_class.new(location, mail, mail.text_part)
+      expect(message.body.encoding.name).to eq('UTF-8')
     end
   end
 end
