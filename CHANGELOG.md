@@ -1,6 +1,7 @@
 ## master ##
 
  * Fix message body encoding is observed correctly in QP CTE. (thanks [Mark Dodwell](https://github.com/mkdynamic))
+ * Remove fixed width on the mail content. (thanks [weexpectedTHIS](https://github.com/weexpectedTHIS))
  
 ## 1.2.0 ##
 
