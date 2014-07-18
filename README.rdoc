@@ -47,7 +47,7 @@ Alternatively, if you are using ActionMailer directly (without Rails) you will n
 
 Letter Opener uses {Launchy}[https://github.com/copiousfreetime/launchy] to open sent mail in the browser. This assumes the Ruby process is running on the local development machine. If you are using a separate staging server or VM this will not work. In that case consider using {Mailtrap}[http://mailtrap.io/] or {MailCatcher}[http://mailcatcher.me/].
 
-In order to keep this project simple, I don't have plans to turn it into a Rails engine with an interface for browsing the sent mail but there is a work in progress gem being developed at https://github.com/fgrehm/letter_opener_web
+In order to keep this project simple, I don't have plans to turn it into a Rails engine with an interface for browsing the sent mail but there is a [gem you can use for that](https://github.com/fgrehm/letter_opener_web).
 
 
 == Development & Feedback
