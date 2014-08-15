@@ -25,7 +25,7 @@
       }
 
       #message_headers dt {
-        width: 92px;
+        width: 192px;
         margin: 0;
         float: left;
         text-align: right;
@@ -34,7 +34,7 @@
       }
 
       #message_headers dd {
-        margin: 0 0 0 102px;
+        margin: 0 0 0 202px;
       }
 
       #message_headers p.alternate {
@@ -101,6 +101,11 @@
               <a href="<%= path %>"><%= filename %></a>&nbsp;
             <% end %>
             </dd>
+          <% end %>
+
+          <% mail.header.fields.select{|f| f.name =~ /^X-/}.each do |field| %>
+            <dt><%= field.name %>:</dt>
+            <dd><%= field.value %></dd>
           <% end %>
         </dl>
 
