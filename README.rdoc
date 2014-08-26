@@ -49,6 +49,11 @@ Letter Opener uses {Launchy}[https://github.com/copiousfreetime/launchy] to open
 
 In order to keep this project simple, I don't have plans to turn it into a Rails engine with an interface for browsing the sent mail but there is a [gem you can use for that](https://github.com/fgrehm/letter_opener_web).
 
+== Throttling
+
+When sending tens or hunderds of emails opening each is very time consuming. A simple throttling mechanism is available to handle such mass mailing situation better. Once the max rate specified reached letter_opener will stop opening the mails, but it still keep the files so you can view the location should you need to. Example:
+
+  config.action_mailer.letter_opener_settings = {max_rate: {messages: 5, every: 20.seconds}}
 
 == Development & Feedback
 
