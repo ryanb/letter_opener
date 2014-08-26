@@ -301,4 +301,34 @@ describe LetterOpener::DeliveryMethod do
       expect(File.exist?(plain_file)).to be_true
     end
   end
+
+  context 'setting max_rate' do
+    before do
+      context = self
+
+      Mail.defaults do
+        delivery_method LetterOpener::DeliveryMethod, :location => context.location, :max_rate => {messages: 3, every: 50}
+      end
+    end
+
+    it 'throttles sent mails' do
+      allow(Time).to receive(:now).and_return(Time.at(0)) # freeze time
+      expect(Launchy).to receive(:open).exactly(3).times
+
+      (1..10).each do
+        Mail.deliver do
+          from     'Foo foo@example.com'
+          body     'World! http://example.com'
+        end
+      end
+
+      allow(Time).to receive(:now).and_return(Time.at(120)) # skip time
+      expect(Launchy).to receive(:open).exactly(1).times
+
+      Mail.deliver do
+        from     'Foo foo@example.com'
+        body     'World! http://example.com'
+      end
+    end
+  end
 end
