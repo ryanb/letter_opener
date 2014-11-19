@@ -52,6 +52,12 @@
         border: 1px solid #eee;
         background-color: #fcfcfc;
       }
+
+      iframe {
+        border: 0;
+        width: 100%;
+        height: 800px;
+      }
     </style>
   </head>
   <body>
@@ -118,7 +124,7 @@
       <% if type == "plain" %>
         <pre id="message_body"><%= auto_link(h(body)) %></pre>
       <% else %>
-        <%= body %>
+        <iframe seamless="seamless" srcdoc="<%= h(body) %>"></iframe>
       <% end %>
     </div>
   </body>
