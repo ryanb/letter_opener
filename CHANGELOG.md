@@ -2,7 +2,8 @@
 
  * Fix message body encoding is observed correctly in QP CTE. (thanks [Mark Dodwell](https://github.com/mkdynamic))
  * Remove fixed width on the mail content. (thanks [weexpectedTHIS](https://github.com/weexpectedTHIS))
- 
+ * Render email content in the iframe. Fixes [#98](https://github.com/ryanb/letter_opener/issues/98). (thanks [Jacob Maine](https://github.com/mainej))
+
 ## 1.2.0 ##
 
   * Fix auto_link() which in some cases would return an empty <a> tag for plain text messages. (thanks [Kevin McPhillips](https://github.com/kmcphillips))
