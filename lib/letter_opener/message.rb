@@ -5,12 +5,22 @@ module LetterOpener
     attr_reader :mail
 
     def self.rendered_messages(location, mail)
+      FileUtils.mkdir_p(location)
+
+      render_raw(location, mail)
+
       messages = []
       messages << new(location, mail, mail.html_part) if mail.html_part
       messages << new(location, mail, mail.text_part) if mail.text_part
       messages << new(location, mail) if messages.empty?
       messages.each(&:render)
       messages.sort
+    end
+
+    def self.render_raw(location, mail)
+      path = File.join(location, "message.eml")
+
+      File.open(path, 'w') { |f| f.write(mail.to_s) }
     end
 
     def initialize(location, mail, part = nil)
@@ -21,8 +31,6 @@ module LetterOpener
     end
 
     def render
-      FileUtils.mkdir_p(@location)
-
       if mail.attachments.any?
         attachments_dir = File.join(@location, 'attachments')
         FileUtils.mkdir_p(attachments_dir)
