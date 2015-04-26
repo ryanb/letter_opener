@@ -32,6 +32,7 @@ describe LetterOpener::DeliveryMethod do
         expect($stdout).to receive(:puts)
         expect {
           Mail.deliver do
+            to   'Bar bar@example.com'
             from 'Foo foo@example.com'
             body 'World! http://example.com'
           end
@@ -46,6 +47,7 @@ describe LetterOpener::DeliveryMethod do
         expect($stdout).to receive(:puts)
         expect {
           Mail.deliver do
+            to   'Bar bar@example.com'
             from 'Foo foo@example.com'
             body 'World! http://example.com'
           end
@@ -284,7 +286,6 @@ describe LetterOpener::DeliveryMethod do
     end
   end
 
-
   context 'subjectless mail' do
     before do
       expect(Launchy).to receive(:open)
@@ -299,6 +300,20 @@ describe LetterOpener::DeliveryMethod do
 
     it 'creates plain html document' do
       expect(File.exist?(plain_file)).to be_true
+    end
+  end
+
+  context 'delivery params' do
+    it 'raises an exception if delivery params are not valid' do
+      expect(Launchy).not_to receive(:open)
+
+      expect {
+        Mail.deliver do
+          from     'Foo foo@example.com'
+          reply_to 'No Reply no-reply@example.com'
+          body     'World! http://example.com'
+        end
+      }.to raise_exception(ArgumentError)
     end
   end
 end
