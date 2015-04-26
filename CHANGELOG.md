@@ -1,3 +1,6 @@
+## master ##
+ * Check delivery params before rendering an email to match SMTP behaviour.
+
 ## 1.3.0 ##
 
  * Fix message body encoding is observed correctly in QP CTE. (thanks [Mark Dodwell](https://github.com/mkdynamic))
