@@ -63,7 +63,7 @@ module LetterOpener
           body.gsub!(attachment.url, "attachments/#{attachment.filename}")
         end
 
-        body
+        base_tag + body
       end
     end
 
@@ -97,6 +97,11 @@ module LetterOpener
 
     def encoding
       body.respond_to?(:encoding) ? body.encoding : "utf-8"
+    end
+
+    # To make links work in iframe with X-Frame-Options set to SAMEORIGIN
+    def base_tag
+      '<base target="_top">'
     end
 
     def auto_link(text)
