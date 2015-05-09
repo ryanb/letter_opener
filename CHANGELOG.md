@@ -1,4 +1,4 @@
-## master ##
+## 1.4.0 ##
  * Add base tag to the iframe so links work with X-Frame-Options set to SAMEORIGIN. (thanks [Jason Tokoph](https://github.com/jtokoph))
  * Check delivery params before rendering an email to match SMTP behaviour.
 
