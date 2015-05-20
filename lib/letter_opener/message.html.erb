@@ -124,7 +124,7 @@
       <% if type == "plain" %>
         <pre id="message_body"><%= auto_link(h(body)) %></pre>
       <% else %>
-        <iframe seamless="seamless" srcdoc="<%= h(body) %>"></iframe>
+        <iframe seamless="seamless" srcdoc="<base target='_top'><%= h(body) %>"></iframe>
       <% end %>
     </div>
   </body>
