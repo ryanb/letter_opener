@@ -1,3 +1,6 @@
+## master ##
+ * Use proper check for `Rails::Railties` (thanks [Florian Weingarten](https://github.com/fw42))
+
 ## 1.4.1 ##
  * Stop base tag appearing in plain-text previews. (thanks [Coby Chapple](https://github.com/cobyism))
 
