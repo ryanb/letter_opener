@@ -1,6 +1,6 @@
 begin
   require 'mail/check_delivery_params'
-rescue LoadError => e
+rescue LoadError
 end
 
 module LetterOpener
