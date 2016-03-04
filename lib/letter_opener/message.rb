@@ -27,7 +27,7 @@ module LetterOpener
         attachments_dir = File.join(@location, 'attachments')
         FileUtils.mkdir_p(attachments_dir)
         mail.attachments.each do |attachment|
-          filename = attachment.filename.gsub(/[^\w.]/, '_')
+          filename = attachment.filename.gsub(/[^\w\-_.]/, '_')
           path = File.join(attachments_dir, filename)
 
           unless File.exists?(path) # true if other parts have already been rendered
