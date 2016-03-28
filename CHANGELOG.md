@@ -1,6 +1,7 @@
 ## master ##
  * Use proper check for `Rails::Railties` (thanks [Florian Weingarten](https://github.com/fw42))
  * Add a shim for the iFrame "srcdoc" attribute (make it work with IE).
+ * Do not covert `-` to `_` in attachment file names. (thanks [Steven Harman](https://github.com/stevenharman)) 
 
 ## 1.4.1 ##
  * Stop base tag appearing in plain-text previews. (thanks [Coby Chapple](https://github.com/cobyism))
