@@ -271,18 +271,18 @@ describe LetterOpener::DeliveryMethod do
         text_part do
           body 'This is <plain> text'
         end
-        attachments['non word:chars/used,01.txt'] = File.read(__FILE__)
+        attachments['non word:chars/used,01-02.txt'] = File.read(__FILE__)
       end
     end
 
     it 'creates attachments dir with attachment' do
-      attachment = Dir["#{location}/*/attachments/non_word_chars_used_01.txt"].first
+      attachment = Dir["#{location}/*/attachments/non_word_chars_used_01-02.txt"].first
       expect(File.exists?(attachment)).to be_true
     end
 
     it 'saves attachment name' do
       plain = File.read(Dir["#{location}/*/plain.html"].first)
-      expect(plain).to include('non_word_chars_used_01.txt')
+      expect(plain).to include('non_word_chars_used_01-02.txt')
     end
   end
 
