@@ -13,6 +13,7 @@ Gem::Specification.new do |s|
   s.add_dependency 'launchy', '~> 2.2'
   s.add_development_dependency 'rspec', '~> 2.14.0'
   s.add_development_dependency 'mail', '~> 2.6.0'
+  s.add_development_dependency 'mime-types', '< 3' if RUBY_VERSION < '2.0'
 
   s.rubyforge_project = s.name
   s.required_rubygems_version = ">= 1.3.4"
