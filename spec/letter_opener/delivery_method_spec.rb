@@ -272,6 +272,12 @@ describe LetterOpener::DeliveryMethod do
           body 'This is <plain> text'
         end
         attachments['non word:chars/used,01-02.txt'] = File.read(__FILE__)
+
+        url = attachments[0].url
+        html_part do
+          content_type 'text/html; charset=UTF-8'
+          body "This is an image: <img src='#{url}'>"
+        end
       end
     end
 
@@ -283,6 +289,12 @@ describe LetterOpener::DeliveryMethod do
     it 'saves attachment name' do
       plain = File.read(Dir["#{location}/*/plain.html"].first)
       expect(plain).to include('non_word_chars_used_01-02.txt')
+    end
+
+    it 'replaces inline attachment names' do
+      text = File.read(Dir["#{location}/*/rich.html"].first)
+      expect(text).to_not include('attachments/non word:chars/used,01-02.txt')
+      expect(text).to include('attachments/non_word_chars_used_01-02.txt')
     end
   end
 

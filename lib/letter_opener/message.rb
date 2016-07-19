@@ -60,7 +60,7 @@ module LetterOpener
         body = (@part || @mail).decoded
 
         mail.attachments.each do |attachment|
-          body.gsub!(attachment.url, "attachments/#{attachment.filename}")
+          body.gsub!(attachment.url, "attachments/#{attachment.filename.gsub(/[^\w\-_.]/, '_')}")
         end
 
         body
