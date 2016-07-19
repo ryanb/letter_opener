@@ -27,7 +27,7 @@ module LetterOpener
         attachments_dir = File.join(@location, 'attachments')
         FileUtils.mkdir_p(attachments_dir)
         mail.attachments.each do |attachment|
-          filename = attachment.filename.gsub(/[^\w\-_.]/, '_')
+          filename = attachment_filename(attachment)
           path = File.join(attachments_dir, filename)
 
           unless File.exists?(path) # true if other parts have already been rendered
@@ -60,7 +60,7 @@ module LetterOpener
         body = (@part || @mail).decoded
 
         mail.attachments.each do |attachment|
-          body.gsub!(attachment.url, "attachments/#{attachment.filename.gsub(/[^\w\-_.]/, '_')}")
+          body.gsub!(attachment.url, "attachments/#{attachment_filename(attachment)}")
         end
 
         body
@@ -107,6 +107,10 @@ module LetterOpener
 
     def h(content)
       CGI.escapeHTML(content)
+    end
+
+    def attachment_filename(attachment)
+      attachment.filename.gsub(/[^\w\-_.]/, '_')
     end
 
     def <=>(other)
