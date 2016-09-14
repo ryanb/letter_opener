@@ -1,4 +1,7 @@
+require "cgi"
 require "erb"
+require "fileutils"
+require "uri"
 
 module LetterOpener
   class Message

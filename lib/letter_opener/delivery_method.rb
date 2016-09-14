@@ -1,5 +1,8 @@
+require "digest/sha1"
+require "launchy"
 begin
-  require 'mail/check_delivery_params'
+  require "mail"
+  require "mail/check_delivery_params"
 rescue LoadError
 end
 
