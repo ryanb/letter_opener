@@ -1,4 +1,5 @@
 begin
+  require 'mail'
   require 'mail/check_delivery_params'
 rescue LoadError
 end
