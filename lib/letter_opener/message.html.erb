@@ -79,7 +79,7 @@
 
           <% if mail.subject %>
             <dt>Subject:</dt>
-            <dd><strong><%= h mail.subject %></strong></dd>
+            <dd><strong><%= h mail.subject.toutf8 %></strong></dd>
           <% end %>
 
           <dt>Date:</dt>
