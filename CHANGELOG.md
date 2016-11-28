@@ -4,6 +4,7 @@
  * Do not convert `-` to `_` in attachment file names. (thanks [Steven Harman](https://github.com/stevenharman))
  * Drop Ruby 1.9 support.
  * Escape inline attachment names the same way they are stored in the attachments directory (thanks [Daniel Rikowski](https://github.com/daniel-rikowski))
+ * Increase timestamp precision in the mail filename. (thanks [Piotr Usewicz](https://github.com/pusewicz))
 
 ## 1.4.1 ##
  * Stop base tag appearing in plain-text previews. (thanks [Coby Chapple](https://github.com/cobyism))
