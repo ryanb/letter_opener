@@ -7,7 +7,7 @@ describe LetterOpener::DeliveryMethod do
   let(:plain)      { CGI.unescape_html(File.read(plain_file)) }
 
   before do
-    Launchy.stub(:open)
+    allow(Launchy).to receive(:open)
     FileUtils.rm_rf(location)
     context = self
 
@@ -23,7 +23,7 @@ describe LetterOpener::DeliveryMethod do
 
   context 'integration' do
     before do
-      Launchy.unstub(:open)
+      expect(Launchy).to receive(:open).and_call_original
       ENV['LAUNCHY_DRY_RUN'] = 'true'
     end
 
@@ -74,7 +74,7 @@ describe LetterOpener::DeliveryMethod do
       end
 
       it 'creates plain html document' do
-        expect(File.exist?(plain_file)).to be_true
+        expect(File.exist?(plain_file)).to be_truthy
       end
 
       it 'saves From field' do
@@ -124,11 +124,11 @@ describe LetterOpener::DeliveryMethod do
       end
 
       it 'creates plain html document' do
-        expect(File.exist?(plain_file)).to be_true
+        expect(File.exist?(plain_file)).to be_truthy
       end
 
       it 'creates rich html document' do
-        expect(File.exist?(rich_file)).to be_true
+        expect(File.exist?(rich_file)).to be_truthy
       end
 
       it 'shows link to rich html version' do
@@ -188,7 +188,7 @@ describe LetterOpener::DeliveryMethod do
     end
 
     it 'creates plain html document' do
-      expect(File.exist?(plain_file)).to be_true
+      expect(File.exist?(plain_file)).to be_truthy
     end
 
     it 'saves From field' do
@@ -223,7 +223,7 @@ describe LetterOpener::DeliveryMethod do
 
     it 'creates attachments dir with attachment' do
       attachment = Dir["#{location}/*/attachments/#{File.basename(__FILE__)}"].first
-      expect(File.exists?(attachment)).to be_true
+      expect(File.exists?(attachment)).to be_truthy
     end
 
     it 'saves attachment name' do
@@ -251,7 +251,7 @@ describe LetterOpener::DeliveryMethod do
 
     it 'creates attachments dir with attachment' do
       attachment = Dir["#{location}/*/attachments/#{File.basename(__FILE__)}"].first
-      expect(File.exists?(attachment)).to be_true
+      expect(File.exists?(attachment)).to be_truthy
     end
 
     it 'replaces inline attachment urls' do
@@ -283,7 +283,7 @@ describe LetterOpener::DeliveryMethod do
 
     it 'creates attachments dir with attachment' do
       attachment = Dir["#{location}/*/attachments/non_word_chars_used_01-02.txt"].first
-      expect(File.exists?(attachment)).to be_true
+      expect(File.exists?(attachment)).to be_truthy
     end
 
     it 'saves attachment name' do
@@ -311,7 +311,7 @@ describe LetterOpener::DeliveryMethod do
     end
 
     it 'creates plain html document' do
-      expect(File.exist?(plain_file)).to be_true
+      expect(File.exist?(plain_file)).to be_truthy
     end
   end
 
