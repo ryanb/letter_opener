@@ -37,7 +37,7 @@ module LetterOpener
             File.open(path, 'wb') { |f| f.write(attachment.body.raw_source) }
           end
 
-          @attachments << [attachment.filename, "attachments/#{URI.escape(filename)}"]
+          @attachments << [attachment.filename, "attachments/#{CGI.escape(filename)}"]
         end
       end
 
