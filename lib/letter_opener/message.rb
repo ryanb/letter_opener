@@ -33,11 +33,11 @@ module LetterOpener
           filename = attachment_filename(attachment)
           path = File.join(attachments_dir, filename)
 
-          unless File.exists?(path) # true if other parts have already been rendered
+          unless File.exist?(path) # true if other parts have already been rendered
             File.open(path, 'wb') { |f| f.write(attachment.body.raw_source) }
           end
 
-          @attachments << [attachment.filename, "attachments/#{URI.escape(filename)}"]
+          @attachments << [attachment.filename, "attachments/#{CGI.escape(filename)}"]
         end
       end
 
@@ -103,7 +103,7 @@ module LetterOpener
     end
 
     def auto_link(text)
-      text.gsub(URI.regexp(%W[https http])) do |link|
+      text.gsub(URI::Parser.new.make_regexp(%W[https http])) do |link|
         "<a href=\"#{ link }\">#{ link }</a>"
       end
     end

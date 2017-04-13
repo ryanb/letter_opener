@@ -223,7 +223,7 @@ describe LetterOpener::DeliveryMethod do
 
     it 'creates attachments dir with attachment' do
       attachment = Dir["#{location}/*/attachments/#{File.basename(__FILE__)}"].first
-      expect(File.exists?(attachment)).to be_truthy
+      expect(File.exist?(attachment)).to be_truthy
     end
 
     it 'saves attachment name' do
@@ -251,7 +251,7 @@ describe LetterOpener::DeliveryMethod do
 
     it 'creates attachments dir with attachment' do
       attachment = Dir["#{location}/*/attachments/#{File.basename(__FILE__)}"].first
-      expect(File.exists?(attachment)).to be_truthy
+      expect(File.exist?(attachment)).to be_truthy
     end
 
     it 'replaces inline attachment urls' do
@@ -283,7 +283,7 @@ describe LetterOpener::DeliveryMethod do
 
     it 'creates attachments dir with attachment' do
       attachment = Dir["#{location}/*/attachments/non_word_chars_used_01-02.txt"].first
-      expect(File.exists?(attachment)).to be_truthy
+      expect(File.exist?(attachment)).to be_truthy
     end
 
     it 'saves attachment name' do
