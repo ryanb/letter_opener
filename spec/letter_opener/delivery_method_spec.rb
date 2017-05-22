@@ -3,6 +3,9 @@ require "spec_helper"
 describe LetterOpener::DeliveryMethod do
   let(:location)   { File.expand_path('../../../tmp/letter_opener', __FILE__) }
 
+  let(:eml_file) { Dir["#{location}/*/message.eml"].first }
+  let(:eml)      { CGI.unescape_html(File.read(eml_file)) }
+
   let(:plain_file) { Dir["#{location}/*/plain.html"].first }
   let(:plain)      { CGI.unescape_html(File.read(plain_file)) }
 
@@ -61,7 +64,7 @@ describe LetterOpener::DeliveryMethod do
       before do
         expect(Launchy).to receive(:open)
 
-        Mail.deliver do
+        @mail = Mail.deliver do
           from     'Foo <foo@example.com>'
           sender   'Baz <baz@example.com>'
           reply_to 'No Reply <no-reply@example.com>'
@@ -75,6 +78,10 @@ describe LetterOpener::DeliveryMethod do
 
       it 'creates plain html document' do
         expect(File.exist?(plain_file)).to be_truthy
+      end
+
+      it 'creates eml document' do
+        expect(File.exist?(eml_file)).to be_true
       end
 
       it 'saves From field' do
@@ -100,6 +107,10 @@ describe LetterOpener::DeliveryMethod do
       it 'saves Body with autolink' do
         expect(plain).to include('World! <a href="http://example.com">http://example.com</a>')
       end
+
+      it 'saves eml document' do
+        expect(eml).to eq(@mail.to_s)
+      end
     end
 
     context 'multipart' do
@@ -109,7 +120,7 @@ describe LetterOpener::DeliveryMethod do
       before do
         expect(Launchy).to receive(:open)
 
-        Mail.deliver do
+        @mail = Mail.deliver do
           from    'foo@example.com'
           to      'bar@example.com'
           subject 'Many parts with <html>'
@@ -131,6 +142,10 @@ describe LetterOpener::DeliveryMethod do
         expect(File.exist?(rich_file)).to be_truthy
       end
 
+      it 'creates eml document' do
+        expect(File.exist?(eml_file)).to be_true
+      end
+
       it 'shows link to rich html version' do
         expect(plain).to include("View HTML version")
       end
@@ -149,6 +164,10 @@ describe LetterOpener::DeliveryMethod do
 
       it 'shows subject as title' do
         expect(rich).to include("<title>Many parts with <html></title>")
+      end
+
+      it 'saves eml document' do
+        expect(eml).to eq(@mail.to_s)
       end
     end
   end
