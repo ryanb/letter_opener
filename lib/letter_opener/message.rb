@@ -2,6 +2,7 @@ require "cgi"
 require "erb"
 require "fileutils"
 require "uri"
+require 'kconv'
 
 module LetterOpener
   class Message
