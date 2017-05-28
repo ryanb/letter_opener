@@ -51,7 +51,7 @@ module LetterOpener
     end
 
     def filepath
-      File.join(@location, "#{type}.html")
+      File.expand_path( File.join(@location, "#{type}.html") )
     end
 
     def content_type
