@@ -16,6 +16,18 @@ Then set the delivery method in <tt>config/environments/development.rb</tt>
 Now any email will pop up in your browser instead of being sent. The messages are stored in <tt>tmp/letter_opener</tt>.
 If you want to change application that will be used to open your emails you should override <tt>LAUNCHY_APPLICATION</tt> environment variable or set <tt>Launchy.application</tt> in the initializer.
 
+==== Configuration
+
+  LetterOpener.configure do |config|
+    # To overrider the location for message storage.
+    # Default value is <tt>tmp/letter_opener</tt>
+    config.location = Rails.root.join('tmp', 'my_mails')
+
+    # To render only the message body, without any metadata or extra containers or styling.
+    # Default value is <tt>:default</tt> that renders styled message with showing useful metadata.
+    config.message_template = :light
+  end
+
 ==== For Rails 2.3.x support
 
 There is a fork that add support for Rails 2.3.x, in order to use that or just check it out you should go to https://github.com/cavi21/letter_opener

@@ -5,6 +5,8 @@
  * Drop Ruby 1.9 support.
  * Escape inline attachment names the same way they are stored in the attachments directory (thanks [Daniel Rikowski](https://github.com/daniel-rikowski))
  * Increase timestamp precision in the mail filename. (thanks [Piotr Usewicz](https://github.com/pusewicz))
+ * Add ability to configure location of stored mails. (thanks [Ben](https://github.com/beejamin))
+ * Add light version of template for mails that doesn't render any additional styling. (thanks [Ben](https://github.com/beejamin))
 
 ## 1.4.1 ##
  * Stop base tag appearing in plain-text previews. (thanks [Coby Chapple](https://github.com/cobyism))

@@ -328,4 +328,36 @@ describe LetterOpener::DeliveryMethod do
       }.to raise_exception(ArgumentError)
     end
   end
+
+  context 'light template' do
+    before do
+      expect(Launchy).to receive(:open)
+
+      LetterOpener.configure do |config|
+        config.message_template = :light
+      end
+
+      Mail.defaults do
+        delivery_method LetterOpener::DeliveryMethod, :location => File.expand_path('../../../tmp/letter_opener', __FILE__)
+      end
+
+      Mail.deliver do
+        subject  'Foo subject'
+        from     'Foo foo@example.com'
+        reply_to 'No Reply no-reply@example.com'
+        to       'Bar bar@example.com'
+        body     'World! http://example.com'
+      end
+    end
+
+    after do
+      LetterOpener.configure do |config|
+        config.message_template = :default
+      end
+    end
+
+    it 'creates plain html document' do
+      expect(File.exist?(plain_file)).to be_truthy
+    end
+  end
 end
