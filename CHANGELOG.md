@@ -1,4 +1,4 @@
-## master ##
+## 1.5.0 ##
  * Use proper check for `Rails::Railties` (thanks [Florian Weingarten](https://github.com/fw42))
  * Add a shim for the iFrame "srcdoc" attribute (make it work with IE).
  * Do not convert `-` to `_` in attachment file names. (thanks [Steven Harman](https://github.com/stevenharman))
