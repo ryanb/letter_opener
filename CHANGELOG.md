@@ -1,4 +1,4 @@
-## master ##
+## 1.6.0 ##
  * Do not depend on Mail gem to check delivery params.
  * Do not parse and escape url before passing it to Launchy.
 
