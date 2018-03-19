@@ -201,4 +201,22 @@ describe LetterOpener::Message do
       expect(message.body.encoding.name).to eq('UTF-8')
     end
   end
+
+  describe '.rendered_messages' do
+    it 'uses configured default template if options not given' do
+      allow(LetterOpener.configuration).to receive(:location) { location }
+      messages = described_class.rendered_messages(mail)
+      expect(messages.first.template).not_to be_nil
+    end
+
+    it 'fails if necessary defaults are not provided' do
+      allow(LetterOpener.configuration).to receive(:location) { nil }
+      expect { described_class.rendered_messages(mail) }.to raise_error(ArgumentError)
+    end
+
+    it 'fails if necessary defaults are not provided' do
+      allow(LetterOpener.configuration).to receive(:message_template) { nil }
+      expect { described_class.rendered_messages(mail) }.to raise_error(ArgumentError)
+    end
+  end
 end
