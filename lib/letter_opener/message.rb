@@ -16,12 +16,17 @@ module LetterOpener
       messages.sort
     end
 
+    ERROR_MSG = '%s or default configuration must be given'.freeze
+
     def initialize(mail, options = {})
       @mail = mail
-      @location = options[:location]
+      @location = options[:location] || LetterOpener.configuration.location
       @part = options[:part]
-      @template = options[:message_template]
+      @template = options[:message_template] || LetterOpener.configuration.message_template
       @attachments = []
+
+      raise ArgumentError, ERROR_MSG % 'options[:location]' unless @location
+      raise ArgumentError, ERROR_MSG % 'options[:message_template]' unless @template
     end
 
     def render

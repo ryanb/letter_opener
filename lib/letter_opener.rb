@@ -4,7 +4,7 @@ module LetterOpener
   autoload :Configuration, "letter_opener/configuration"
 
   def self.configuration
-    @configration ||= Configuration.new
+    @configuration ||= Configuration.new
   end
 
   def self.configure
