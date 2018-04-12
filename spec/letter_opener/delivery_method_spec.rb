@@ -316,7 +316,7 @@ describe LetterOpener::DeliveryMethod do
   end
 
   context 'delivery params' do
-    it 'raises an exception if delivery params are not valid' do
+    it 'raises an exception if there is no SMTP Envelope To value' do
       expect(Launchy).not_to receive(:open)
 
       expect {
@@ -326,6 +326,19 @@ describe LetterOpener::DeliveryMethod do
           body     'World! http://example.com'
         end
       }.to raise_exception(ArgumentError)
+    end
+
+    it 'does not raise an exception if there is at least one SMTP Envelope To value' do
+      expect(Launchy).to receive(:open)
+
+      expect {
+        Mail.deliver do
+          from     'Foo foo@example.com'
+          cc       'Bar bar@example.com'
+          reply_to 'No Reply no-reply@example.com'
+          body     'World! http://example.com'
+        end
+      }.not_to raise_exception
     end
   end
 

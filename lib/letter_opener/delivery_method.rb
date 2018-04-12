@@ -27,11 +27,11 @@ module LetterOpener
     private
 
     def validate_mail!(mail)
-      if !mail.from || mail.from.empty?
+      if !mail.smtp_envelope_from || mail.smtp_envelope_from.empty?
         raise ArgumentError, "SMTP From address may not be blank"
       end
 
-      if !mail.to || mail.to.empty?
+      if !mail.smtp_envelope_to || mail.smtp_envelope_to.empty?
         raise ArgumentError, "SMTP To address may not be blank"
       end
     end
