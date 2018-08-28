@@ -119,7 +119,7 @@ module LetterOpener
     end
 
     def attachment_filename(attachment)
-      attachment.filename.gsub(/[^\w\-_.]/, '_')
+      attachment.filename.gsub(/[^\w\-.]/, '_')
     end
 
     def <=>(other)
