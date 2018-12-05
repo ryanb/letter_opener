@@ -26,12 +26,16 @@ module LetterOpener
 
     private
 
+    def mail_missing_bcc?(mail)
+      mail.bcc.nil? || mail.bcc.empty?
+    end
+
     def validate_mail!(mail)
       if !mail.smtp_envelope_from || mail.smtp_envelope_from.empty?
         raise ArgumentError, "SMTP From address may not be blank"
       end
 
-      if !mail.smtp_envelope_to || mail.smtp_envelope_to.empty?
+      if !mail.smtp_envelope_to || (mail.smtp_envelope_to.empty? && mail_missing_bcc?(mail))
         raise ArgumentError, "SMTP To address may not be blank"
       end
     end

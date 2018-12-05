@@ -340,6 +340,19 @@ describe LetterOpener::DeliveryMethod do
         end
       }.not_to raise_exception
     end
+
+    it 'does not raise an exception if there is at least one bcc value' do
+      expect(Launchy).to receive(:open)
+
+      expect {
+        Mail.deliver do
+          from     'Foo foo@example.com'
+          bcc      'Bar bar@example.com'
+          reply_to 'No Reply no-reply@example.com'
+          body     'World! http://example.com'
+        end
+      }.not_to raise_exception
+    end
   end
 
   context 'light template' do
