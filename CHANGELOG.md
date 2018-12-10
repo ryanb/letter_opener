@@ -2,6 +2,7 @@
  * Use default configuration in `Message::rendered_messages` (thanks [Krystan HuffMenne
 ](https://github.com/gitKrystan))
  * Do not use `Rails.root` path if LetterOpener is used outside of Rails (thanks [centrevillage](https://github.com/centrevillage))
+ * Allow to set only `Mail#cc`/`Mail#bcc` without `Mail#to`.
 
 ## 1.6.0 ##
  * Do not depend on Mail gem to check delivery params.
