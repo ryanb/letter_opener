@@ -1,4 +1,6 @@
 ## master ##
+
+## 1.7.0 ##
  * Use default configuration in `Message::rendered_messages` (thanks [Krystan HuffMenne
 ](https://github.com/gitKrystan))
  * Do not use `Rails.root` path if LetterOpener is used outside of Rails (thanks [centrevillage](https://github.com/centrevillage))
