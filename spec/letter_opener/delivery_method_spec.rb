@@ -316,29 +316,56 @@ describe LetterOpener::DeliveryMethod do
   end
 
   context 'delivery params' do
-    it 'raises an exception if there is no SMTP Envelope To value' do
-      expect(Launchy).not_to receive(:open)
-
-      expect {
-        Mail.deliver do
-          from     'Foo foo@example.com'
-          reply_to 'No Reply no-reply@example.com'
-          body     'World! http://example.com'
+    context 'when disable_mail_validation is false (default)' do
+      before do
+        LetterOpener.configure do |config|
+          config.disable_mail_validation = false
         end
-      }.to raise_exception(ArgumentError)
+      end
+
+      it 'raises an exception if there is no SMTP Envelope To value' do
+        puts LetterOpener.configuration.disable_mail_validation
+        expect(Launchy).not_to receive(:open)
+
+        expect {
+          Mail.deliver do
+            from     'Foo foo@example.com'
+            reply_to 'No Reply no-reply@example.com'
+            body     'World! http://example.com'
+          end
+        }.to raise_exception(ArgumentError)
+      end
+
+      it 'does not raise an exception if there is at least one SMTP Envelope To value' do
+        expect(Launchy).to receive(:open)
+
+        expect {
+          Mail.deliver do
+            from     'Foo foo@example.com'
+            cc       'Bar bar@example.com'
+            reply_to 'No Reply no-reply@example.com'
+            body     'World! http://example.com'
+          end
+        }.not_to raise_exception
+      end
     end
 
-    it 'does not raise an exception if there is at least one SMTP Envelope To value' do
-      expect(Launchy).to receive(:open)
-
-      expect {
-        Mail.deliver do
-          from     'Foo foo@example.com'
-          cc       'Bar bar@example.com'
-          reply_to 'No Reply no-reply@example.com'
-          body     'World! http://example.com'
+    context 'when disable_mail_validation is true' do
+      before do
+        LetterOpener.configure do |config|
+          config.disable_mail_validation = true
         end
-      }.not_to raise_exception
+      end
+
+      it 'does not raise an exception with empty SMTP Envelope From/To values' do
+        expect(Launchy).to receive(:open)
+
+        expect {
+          Mail.deliver do
+            body     'World! http://example.com'
+          end
+        }.not_to raise_exception
+      end
     end
   end
 
