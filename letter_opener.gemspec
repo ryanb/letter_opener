@@ -15,6 +15,11 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'rspec', '~> 3.5.0'
   s.add_development_dependency 'mail', '~> 2.6.0'
 
-  s.rubyforge_project = s.name
   s.required_rubygems_version = ">= 1.3.4"
+  
+  if s.respond_to?(:metadata)
+    s.metadata['changelog_uri'] = 'https://github.com/ryanb/letter_opener/blob/master/CHANGELOG.md'
+    s.metadata['source_code_uri'] = 'https://github.com/ryanb/letter_opener/'
+    s.metadata['bug_tracker_uri'] = 'https://github.com/ryanb/letter_opener/issues'
+  end
 end
