@@ -8,5 +8,9 @@ module LetterOpener
         )
       end
     end
+
+    rake_tasks do
+      load 'letter_opener/tasks/letter_opener.rake'
+    end
   end
 end
