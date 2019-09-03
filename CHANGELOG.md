@@ -1,4 +1,5 @@
 ## master ##
+ * Enhance 'tmp:clear' task to delete 'tmp/letter_opener' files (thanks [Joaquín Vicente](https://github.com/wacko))
 
 ## 1.7.0 ##
  * Use default configuration in `Message::rendered_messages` (thanks [Krystan HuffMenne
