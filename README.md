@@ -77,7 +77,7 @@ If you are running your application within a Docker Container or VM and do not h
 WARN: Launchy::CommandNotFoundError: Unable to find a browser command. If this is unexpected, Please rerun with environment variable LAUNCHY_DEBUG=true or the '-d' commandline option and file a bug at https://github.com/copiousfreetime/launchy/issues/new
 ```
 
-To resolve this, simply set the following ENV variable:
+To resolve this, simply set the following ENV variables:
 
 ```
 LAUNCHY_DRY_RUN=true
