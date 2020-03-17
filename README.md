@@ -71,6 +71,19 @@ ActionMailer::Base.delivery_method = :letter_opener
 
 Letter Opener uses [Launchy](https://github.com/copiousfreetime/launchy) to open sent mail in the browser. This assumes the Ruby process is running on the local development machine. If you are using a separate staging server or VM this will not work. In that case consider using [Mailtrap](http://mailtrap.io/) or [MailCatcher](http://mailcatcher.me/).
 
+If you are running your application within a Docker Container or VM and do not have a browser available to open emails received by Letter Opener, you may see the following error:
+
+```
+WARN: Launchy::CommandNotFoundError: Unable to find a browser command. If this is unexpected, Please rerun with environment variable LAUNCHY_DEBUG=true or the '-d' commandline option and file a bug at https://github.com/copiousfreetime/launchy/issues/new
+```
+
+To resolve this, simply set the following ENV variable:
+
+```
+LAUNCHY_DRY_RUN=true
+BROWSER=/dev/null
+```
+
 In order to keep this project simple, I don't have plans to turn it into a Rails engine with an interface for browsing the sent mail but there is a [gem you can use for that](https://github.com/fgrehm/letter_opener_web).
 
 
