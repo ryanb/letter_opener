@@ -3,7 +3,7 @@ module LetterOpener
     attr_accessor :location, :message_template
 
     def initialize
-      @location = Rails.root.join('tmp', 'letter_opener') if defined?(Rails) && Rails.respond_to?(:root)
+      @location = Rails.root.join('tmp', 'letter_opener') if defined?(Rails) && Rails.respond_to?(:root) && Rails.root
       @message_template = 'default'
     end
   end
