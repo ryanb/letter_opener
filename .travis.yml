@@ -10,3 +10,4 @@ rvm:
   - 2.5.5
   - 2.6.3
   - jruby-9.2.7.0
+  - truffleruby-head
