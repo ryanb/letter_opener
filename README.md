@@ -7,7 +7,7 @@ Preview email in the default browser instead of sending it. This means you do no
 First add the gem to your development environment and run the `bundle` command to install it.
 
 ```rb
-gem "letter_opener", :group => :development
+gem "letter_opener", group: :development
 ```
 
 Then set the delivery method in `config/environments/development.rb`
@@ -45,7 +45,7 @@ If you aren't using Rails, this can be easily set up with the Mail gem. Just set
 ```rb
 require "letter_opener"
 Mail.defaults do
-  delivery_method LetterOpener::DeliveryMethod, :location => File.expand_path('../tmp/letter_opener', __FILE__)
+  delivery_method LetterOpener::DeliveryMethod, location: File.expand_path('../tmp/letter_opener', __FILE__)
 end
 ```
 
@@ -54,8 +54,8 @@ The method is similar if you're using the Pony gem:
 ```rb
 require "letter_opener"
 Pony.options = {
-  :via => LetterOpener::DeliveryMethod,
-  :via_options => {:location => File.expand_path('../tmp/letter_opener', __FILE__)}
+  via: LetterOpener::DeliveryMethod,
+  via_options: {location: File.expand_path('../tmp/letter_opener', __FILE__)}
 }
 ```
 
