@@ -35,6 +35,20 @@ describe LetterOpener::Message do
 
   end
 
+  describe '#subject' do
+    it 'handles UTF-8 charset subject' do
+      mail = mail(:subject => 'test_mail')
+      message = described_class.new(mail, location: location)
+      expect(message.subject).to eq('test_mail')
+    end
+
+    it 'handles encode ISO-2022-JP charset subject' do
+      mail = mail(:subject => '=?iso-2022-jp?B?GyRCJUYlOSVIJWEhPCVrGyhC?=')
+      message = described_class.new(mail, location: location)
+      expect(message.subject).to eq('テストメール')
+    end
+  end
+
   describe '#to' do
     it 'handles one email as a string' do
       mail   = mail(:to => 'test@example.com')
