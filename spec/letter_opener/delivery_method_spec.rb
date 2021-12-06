@@ -2,7 +2,7 @@ require "spec_helper"
 
 describe LetterOpener::DeliveryMethod do
   let(:location)   { File.expand_path('../../../tmp/letter_opener', __FILE__) }
-  let(:files_storage) { nil }
+  let(:files_storage) { 'file:///' }
 
   let(:plain_file) { Dir["#{location}/*/plain.html"].first }
   let(:plain)      { CGI.unescape_html(File.read(plain_file)) }
@@ -376,32 +376,39 @@ describe LetterOpener::DeliveryMethod do
   end
 
   context 'specifying custom files_storage configuration options' do
-    context 'files_storage is not set in configuration' do
-      after do
-        Mail.defaults do
-          delivery_method LetterOpener::DeliveryMethod, location: File.expand_path('../../../tmp/letter_opener', __FILE__)
-        end
-  
-        Mail.deliver do
-          subject  'Foo subject'
-          from     'Foo foo@example.com'
-          reply_to 'No Reply no-reply@example.com'
-          to       'Bar bar@example.com'
-          body     'World! http://example.com'
-        end
+    after do
+      Mail.defaults do
+        delivery_method LetterOpener::DeliveryMethod, location: File.expand_path('../../../tmp/letter_opener', __FILE__)
       end
 
+      Mail.deliver do
+        subject  'Foo subject'
+        from     'Foo foo@example.com'
+        reply_to 'No Reply no-reply@example.com'
+        to       'Bar bar@example.com'
+        body     'World! http://example.com'
+      end
+
+      LetterOpener.configure do |config|
+        config.files_storage = files_storage
+      end
+    end
+
+    context 'files_storage is not set in configuration' do
       it "sends the path to Launchy with the 'file://' prefix by default" do
         allow(Launchy).to receive(:open) do |path|
           expect(path).to match(/^file:\/\//)
         end
       end
-  
+    end
+
+    context 'files_storage is set in configuration' do
+
       it "sends the path to Launchy without the 'file://' prefix" do
         allow(Launchy).to receive(:open) do |path|
           expect(path).not_to match(/^file:\/\//)
         end
-        
+
         LetterOpener.configure do |config|
           config.files_storage = ''
         end
