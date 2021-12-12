@@ -218,10 +218,5 @@ describe LetterOpener::Message do
       allow(LetterOpener.configuration).to receive(:message_template) { nil }
       expect { described_class.rendered_messages(mail) }.to raise_error(ArgumentError)
     end
-
-    it 'fails if necessary defaults are not provided' do
-      allow(LetterOpener.configuration).to receive(:files_storage) { nil }
-      expect { described_class.rendered_messages(mail) }.to raise_error(ArgumentError)
-    end
   end
 end
