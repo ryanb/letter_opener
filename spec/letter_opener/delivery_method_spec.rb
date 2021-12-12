@@ -2,6 +2,7 @@ require "spec_helper"
 
 describe LetterOpener::DeliveryMethod do
   let(:location)   { File.expand_path('../../../tmp/letter_opener', __FILE__) }
+  let(:files_storage) { 'file:///' }
 
   let(:plain_file) { Dir["#{location}/*/plain.html"].first }
   let(:plain)      { CGI.unescape_html(File.read(plain_file)) }
@@ -12,7 +13,7 @@ describe LetterOpener::DeliveryMethod do
     context = self
 
     Mail.defaults do
-      delivery_method LetterOpener::DeliveryMethod, :location => context.location
+      delivery_method LetterOpener::DeliveryMethod, location: context.location, files_storage: context.files_storage
     end
   end
 
@@ -371,6 +372,57 @@ describe LetterOpener::DeliveryMethod do
 
     it 'creates plain html document' do
       expect(File.exist?(plain_file)).to be_truthy
+    end
+  end
+
+  context 'specifying custom files_storage configuration options' do
+    after do
+      Mail.defaults do
+        delivery_method LetterOpener::DeliveryMethod, location: File.expand_path('../../../tmp/letter_opener', __FILE__)
+      end
+
+      Mail.deliver do
+        subject  'Foo subject'
+        from     'Foo foo@example.com'
+        reply_to 'No Reply no-reply@example.com'
+        to       'Bar bar@example.com'
+        body     'World! http://example.com'
+      end
+
+      LetterOpener.configure do |config|
+        config.files_storage = files_storage
+      end
+    end
+
+    context 'files_storage is not set in configuration' do
+      it "sends the path to Launchy with the 'file://' prefix by default" do
+        allow(Launchy).to receive(:open) do |path|
+          expect(path).to match(/^file:\/\//)
+        end
+      end
+    end
+
+    context 'files_storage is set in configuration' do
+
+      it "sends the path to Launchy without the 'file://' prefix" do
+        allow(Launchy).to receive(:open) do |path|
+          expect(path).not_to match(/^file:\/\//)
+        end
+
+        LetterOpener.configure do |config|
+          config.files_storage = ''
+        end
+      end
+
+      it "sends the path to Launchy with the 'file://///wsl$/Ubuntu-18.04' prefix" do
+        allow(Launchy).to receive(:open) do |path|
+          expect(path).to match(/^file:\/\/\/\/\/wsl\$\/Ubuntu-18.04/)
+        end
+
+        LetterOpener.configure do |config|
+          config.files_storage = 'file://///wsl$/Ubuntu-18.04'
+        end
+      end
     end
   end
 end
