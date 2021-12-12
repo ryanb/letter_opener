@@ -22,7 +22,7 @@ module LetterOpener
       location = File.join(settings[:location], "#{Time.now.to_f.to_s.tr('.', '_')}_#{Digest::SHA1.hexdigest(mail.encoded)[0..6]}")
 
       messages = Message.rendered_messages(mail, location: location, message_template: settings[:message_template])
-      Launchy.open("#{settings[:file_uri_scheme]}#{messages.first.filepath}")
+      ::Launchy.open("#{settings[:file_uri_scheme]}#{messages.first.filepath}")
     end
 
     private
