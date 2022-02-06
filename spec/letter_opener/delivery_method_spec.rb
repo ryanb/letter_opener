@@ -289,12 +289,12 @@ describe LetterOpener::DeliveryMethod do
 
     it 'saves attachment name' do
       plain = File.read(Dir["#{location}/*/plain.html"].first)
-      expect(plain).to include('non%20word-chars-used,01-02.txt')
+      expect(plain).to include('non word-chars-used,01-02.txt')
     end
 
     it 'replaces inline attachment names' do
       text = File.read(Dir["#{location}/*/rich.html"].first)
-      expect(text).to include('attachments/non%20word-chars-used,01-02.txt')
+      expect(text).to include('attachments/non word-chars-used,01-02.txt')
     end
   end
 
