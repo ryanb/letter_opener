@@ -3,6 +3,7 @@
 Regis Millet](https://github.com/Kulgar))
  * Enhance 'tmp:clear' task to delete 'tmp/letter_opener' files (thanks [Joaquín Vicente](https://github.com/wacko))
  * Convert mail's subject to UTF-8. (thanks [kuroponzu](https://github.com/kuroponzu))
+ * Use proper attachment's filename sanitization so we don't escape Japanese characters.
 
 ## 1.7.0 ##
  * Use default configuration in `Message::rendered_messages` (thanks [Krystan HuffMenne

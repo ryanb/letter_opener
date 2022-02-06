@@ -44,7 +44,7 @@ module LetterOpener
             File.open(path, 'wb') { |f| f.write(attachment.body.raw_source) }
           end
 
-          @attachments << [attachment.filename, "attachments/#{CGI.escape(filename)}"]
+          @attachments << [attachment.filename, URI.encode("attachments/#{filename}")]
         end
       end
 
@@ -124,7 +124,10 @@ module LetterOpener
     end
 
     def attachment_filename(attachment)
-      attachment.filename.gsub(/[^\w\-.]/, '_')
+      # Copied from https://github.com/rails/rails/blob/6bfc637659248df5d6719a86d2981b52662d9b50/activestorage/app/models/active_storage/filename.rb#L57
+      attachment.filename.encode(
+        Encoding::UTF_8, invalid: :replace, undef: :replace, replace: "�").strip.tr("\u{202E}%$|:;/\t\r\n\\", "-"
+      )
     end
 
     def <=>(other)
