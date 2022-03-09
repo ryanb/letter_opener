@@ -1,6 +1,6 @@
 Gem::Specification.new do |s|
   s.name        = "letter_opener"
-  s.version     = "1.7.0"
+  s.version     = "1.8.0"
   s.author      = "Ryan Bates"
   s.email       = "ryan@railscasts.com"
   s.homepage    = "https://github.com/ryanb/letter_opener"
@@ -12,12 +12,12 @@ Gem::Specification.new do |s|
   s.require_path = "lib"
 
   s.add_dependency 'launchy', '>= 2.2', '< 3'
-  
+
   s.add_development_dependency 'rspec', '~> 3.10.0'
   s.add_development_dependency 'mail', '~> 2.6.0'
 
   s.required_rubygems_version = ">= 1.3.4"
-  
+
   if s.respond_to?(:metadata)
     s.metadata = {
       'bug_tracker_uri' => 'https://github.com/ryanb/letter_opener/issues',

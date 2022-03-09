@@ -1,4 +1,4 @@
-## master ##
+## 1.8.0 ##
  * Allow configuration of the 'file///' part in Launchy.open path (thanks [
 Regis Millet](https://github.com/Kulgar))
  * Enhance 'tmp:clear' task to delete 'tmp/letter_opener' files (thanks [Joaquín Vicente](https://github.com/wacko))
