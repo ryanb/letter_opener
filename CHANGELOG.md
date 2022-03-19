@@ -1,6 +1,6 @@
-## master ##
+## 1.8.1 ##
  * Fix duplication of Rails tasks caused by LetterOpener's rake task file. (thanks [zarqman](https://github.com/zarqman))
- 
+
 ## 1.8.0 ##
  * Allow configuration of the 'file///' part in Launchy.open path (thanks [
 Regis Millet](https://github.com/Kulgar))
