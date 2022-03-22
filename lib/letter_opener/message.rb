@@ -24,7 +24,7 @@ module LetterOpener
       @location = options[:location] || LetterOpener.configuration.location
       @part = options[:part]
       @template = options[:message_template] || LetterOpener.configuration.message_template
-      @decode_attachments = options[:decode_attachments] || LetterOpener.configuration.decode_attachments
+      @decode_attachments = LetterOpener.configuration.decode_attachments
       @attachments = []
 
       raise ArgumentError, ERROR_MSG % 'options[:location]' unless @location
