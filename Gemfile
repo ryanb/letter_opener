@@ -8,4 +8,3 @@ if Gem::Version.new(RUBY_VERSION) >= Gem::Version.new("3.1")
 end
 
 gem "rake"
-gem "pry"
