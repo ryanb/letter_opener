@@ -24,6 +24,7 @@ module LetterOpener
       @location = options[:location] || LetterOpener.configuration.location
       @part = options[:part]
       @template = options[:message_template] || LetterOpener.configuration.message_template
+      @decode_attachments = options[:decode_attachments] || LetterOpener.configuration.decode_attachments
       @attachments = []
 
       raise ArgumentError, ERROR_MSG % 'options[:location]' unless @location
@@ -41,7 +42,8 @@ module LetterOpener
           path = File.join(attachments_dir, filename)
 
           unless File.exist?(path) # true if other parts have already been rendered
-            File.open(path, 'wb') { |f| f.write(attachment.body.raw_source) }
+            content = @decode_attachments ? attachment.decoded : attachment.body.raw_source
+            File.open(path, 'wb') { |f| f.write(content) }
           end
 
           @attachments << [attachment.filename, "attachments/#{filename}"]

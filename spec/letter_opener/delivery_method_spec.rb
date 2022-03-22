@@ -1,4 +1,5 @@
 require "spec_helper"
+require "base64"
 
 describe LetterOpener::DeliveryMethod do
   let(:location)        { File.expand_path('../../../tmp/letter_opener', __FILE__) }
@@ -297,6 +298,49 @@ describe LetterOpener::DeliveryMethod do
       expect(text).to include('attachments/non word-chars-used,01-02.txt')
     end
   end
+
+  context 'attachments with encoding' do
+    def deliver_encoded(attachment_content)
+      Mail.deliver do
+        from      'foo@example.com'
+        to        'bar@example.com'
+        subject   'With encoded attachments'
+        text_part do
+          body 'This is <plain> text'
+        end
+        attachments['encoded_text.txt'] = {
+          mime_type: 'text/plain',
+          encoding: 'base64',
+          content: Base64.encode64(attachment_content)
+        }
+      end
+    end
+
+    it 'writes attachment encoded' do
+      content = 'abc'
+      deliver_encoded(content)
+      text = File.read(Dir["#{location}/*/attachments/encoded_text.txt"].first)
+      expect(text).to include(Base64.encode64(content))
+    end
+
+    context 'specifying decode_attachments configuration option' do
+      it 'writes attachment decoded' do
+        LetterOpener.configure do |config|
+          config.decode_attachments = true
+        end
+
+        content = 'abc'
+        deliver_encoded(content)
+        text = File.read(Dir["#{location}/*/attachments/encoded_text.txt"].first)
+        expect(text).to include('abc')
+
+        LetterOpener.configure do |config|
+          config.decode_attachments = false
+        end
+      end
+    end
+  end
+
 
   context 'subjectless mail' do
     before do
