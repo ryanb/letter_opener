@@ -332,7 +332,7 @@ describe LetterOpener::DeliveryMethod do
         content = 'abc'
         deliver_encoded(content)
         text = File.read(Dir["#{location}/*/attachments/encoded_text.txt"].first)
-        expect(text).to include('abc')
+        expect(text).to include(content)
 
         LetterOpener.configure do |config|
           config.decode_attachments = false
