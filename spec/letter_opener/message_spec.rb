@@ -216,6 +216,23 @@ describe LetterOpener::Message do
     end
   end
 
+  describe '#render' do
+    it 'records the saved email path for plain content type' do
+      mail = mail(:subject => 'test_mail')
+      message = described_class.new(mail, location: location)
+      message.render
+      expect(mail['location_plain'].value).to end_with('tmp/letter_opener/plain.html')
+    end
+
+
+    it 'records the saved email path for rich content type' do
+      mail = mail(:content_type => 'text/html', :subject => 'test_mail')
+      message = described_class.new(mail, location: location)
+      message.render
+      expect(mail['location_rich'].value).to end_with('tmp/letter_opener/rich.html')
+    end
+  end
+
   describe '.rendered_messages' do
     it 'uses configured default template if options not given' do
       allow(LetterOpener.configuration).to receive(:location) { location }
