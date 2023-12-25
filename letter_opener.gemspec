@@ -12,6 +12,7 @@ Gem::Specification.new do |s|
   s.require_path = "lib"
 
   s.add_dependency 'launchy', '>= 2.2', '< 3'
+  s.add_dependency 'nkf'
 
   s.add_development_dependency 'rspec', '~> 3.10.0'
   s.add_development_dependency 'mail', '~> 2.6.0'
