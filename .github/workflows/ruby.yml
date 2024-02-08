@@ -21,7 +21,7 @@ jobs:
         ruby-version: ['3.0', '3.1', '3.2', '3.3', 'truffleruby', 'jruby']
 
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
     - name: Set up Ruby
     # To automatically get bug fixes and new Ruby versions for ruby/setup-ruby,
     # change this to (see https://github.com/ruby/setup-ruby#versioning):
