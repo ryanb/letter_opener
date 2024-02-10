@@ -51,6 +51,8 @@ module LetterOpener
       File.open(filepath, 'w') do |f|
         f.write ERB.new(template).result(binding)
       end
+
+      mail["location_#{type}"] = filepath
     end
 
     def template
