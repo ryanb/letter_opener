@@ -40,10 +40,6 @@ LetterOpener.configure do |config|
 end
 ```
 
-### For Rails 2.3.x support
-
-There is a fork that add support for Rails 2.3.x, in order to use that or just check it out you should go to https://github.com/cavi21/letter_opener
-
 ## Non Rails Setup
 
 If you aren't using Rails, this can be easily set up with the Mail gem. Just set the delivery method when configuring Mail and specify a location.
