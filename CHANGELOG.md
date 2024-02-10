@@ -1,3 +1,7 @@
+## master ##
+  * Store mail location in `Mail::Message` object (thanks [Jonathan Chan](https://github.com/jonmchan))
+  * Drop Ruby 2 support. Support only Ruby 3.0+
+
 ## 1.8.1 ##
  * Fix duplication of Rails tasks caused by LetterOpener's rake task file. (thanks [zarqman](https://github.com/zarqman))
 
