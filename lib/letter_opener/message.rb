@@ -2,7 +2,6 @@ require "cgi"
 require "erb"
 require "fileutils"
 require "uri"
-require "kconv"
 
 module LetterOpener
   class Message
@@ -88,7 +87,7 @@ module LetterOpener
     end
 
     def subject
-      @subject ||= @mail.subject.toutf8
+      @subject ||= @mail.subject
     end
 
     def to
