@@ -1,3 +1,6 @@
+## master ##
+  * Allow Launchy 3.0+.
+
 ## 1.9.0 ##
   * Store mail location in `Mail::Message` object (thanks [Jonathan Chan](https://github.com/jonmchan))
   * Drop Ruby 2 support. Support only Ruby 3.0+
