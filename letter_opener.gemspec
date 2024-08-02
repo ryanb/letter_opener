@@ -8,7 +8,7 @@ Gem::Specification.new do |s|
   s.description = "When mail is sent from your application, Letter Opener will open a preview in the browser instead of sending."
   s.license     = "MIT"
 
-  s.files        = Dir["{lib,spec}/**/*", "[A-Z]*"] - ["Gemfile.lock"]
+  s.files        = Dir["{lib}/**/*", "[A-Z]*"] - ["Gemfile.lock"]
   s.require_path = "lib"
 
   s.add_dependency 'launchy', '>= 2.2', '< 4'
