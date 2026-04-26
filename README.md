@@ -32,6 +32,9 @@ LetterOpener.configure do |config|
   # Default value is `:default` that renders styled message with showing useful metadata.
   config.message_template = :light
 
+  # For debugging you can render the raw message source using the `:raw` template.
+  # config.message_template = :raw
+
   # To change default file URI scheme you can provide `file_uri_scheme` config.
   # It might be useful when you use WSL (Windows Subsystem for Linux) and default
   # scheme doesn't work for you.
