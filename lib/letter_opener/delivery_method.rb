@@ -8,6 +8,7 @@ module LetterOpener
     attr_accessor :settings
 
     def initialize(options = {})
+      options = options.dup
       options[:message_template] ||= LetterOpener.configuration.message_template
       options[:location] ||= LetterOpener.configuration.location
       options[:file_uri_scheme] ||= LetterOpener.configuration.file_uri_scheme
