@@ -40,7 +40,12 @@ module LetterOpener
           path = File.join(attachments_dir, filename)
 
           unless File.exist?(path) # true if other parts have already been rendered
-            File.open(path, 'wb') { |f| f.write(attachment.body.raw_source) }
+            content = begin
+              attachment.body.decoded
+            rescue Mail::UnknownEncodingType
+              attachment.body.raw_source
+            end
+            File.open(path, 'wb') { |f| f.write(content) }
           end
 
           @attachments << [attachment.filename, "attachments/#{filename}"]
