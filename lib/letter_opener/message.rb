@@ -125,11 +125,38 @@ module LetterOpener
     end
 
     def attachment_filename(attachment)
+      @attachment_filenames ||= build_attachment_filenames
+      @attachment_filenames.fetch(attachment) { normalized_attachment_filename(attachment) }.dup
+    end
+
+    def build_attachment_filenames
+      filenames = {}.compare_by_identity
+      used = {}
+      suffixes = Hash.new(1)
+
+      mail.attachments.each do |attachment|
+        original = normalized_attachment_filename(attachment)
+        filename = original
+        extension = File.extname(original)
+        stem = File.basename(original, extension)
+        while used.key?(filename)
+          suffixes[original] += 1
+          filename = "#{stem}-#{suffixes[original]}#{extension}"
+        end
+        used[filename] = true
+        filenames[attachment] = filename
+      end
+      filenames
+    end
+
+    def normalized_attachment_filename(attachment)
       # Copied from https://github.com/rails/rails/blob/6bfc637659248df5d6719a86d2981b52662d9b50/activestorage/app/models/active_storage/filename.rb#L57
       attachment.filename.encode(
         Encoding::UTF_8, invalid: :replace, undef: :replace, replace: "�").strip.tr("\u{202E}%$|:;/\t\r\n\\", "-"
       )
     end
+
+    private :build_attachment_filenames, :normalized_attachment_filename
 
     def <=>(other)
       order = %w[rich plain]
