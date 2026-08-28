@@ -30,6 +30,7 @@ module LetterOpener
     end
 
     def render
+      @attachments.clear
       FileUtils.mkdir_p(@location)
 
       if mail.attachments.any?
